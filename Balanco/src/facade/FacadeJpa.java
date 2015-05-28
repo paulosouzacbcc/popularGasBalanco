@@ -5,8 +5,8 @@
  */
 package facade;
 
-import model.Cliente;
-import model.Venda;
+import jpa.extensao.ClienteJpa;
+import jpa.extensao.VendaJpa;
 
 /**
  *
@@ -15,12 +15,14 @@ import model.Venda;
 public class FacadeJpa {
 
     private static FacadeJpa instance = null;
-    private final Venda venda;
-    private final Cliente cliente;
+
+    private final ClienteJpa clienteJpa;
+    private final VendaJpa vendaJpa;
 
     public FacadeJpa() {
-        venda = new Venda();
-        cliente = new Cliente();
+        clienteJpa = new ClienteJpa();
+        vendaJpa = new VendaJpa();
+
     }
 
     public static FacadeJpa getInstance() {
@@ -30,12 +32,12 @@ public class FacadeJpa {
         return instance;
     }
 
-    public Venda getVenda() {
-        return venda;
+    public VendaJpa getVenda() {
+        return vendaJpa;
     }
 
-    public Cliente getCliente() {
-        return cliente;
+    public ClienteJpa getCliente() {
+        return clienteJpa;
     }
 
 }
