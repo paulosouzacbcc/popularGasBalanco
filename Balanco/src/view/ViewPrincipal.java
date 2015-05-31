@@ -7,22 +7,23 @@ package view;
 
 import java.beans.PropertyVetoException;
 import javax.swing.JInternalFrame;
-import javax.swing.tree.DefaultMutableTreeNode;
 import view.cliente.ViewConsultaCliente;
 
 /**
  *
  * @author paulosouza
  */
-public class TelaPrincipal extends javax.swing.JFrame {
+public class ViewPrincipal extends javax.swing.JFrame {
 
     /**
-     * Creates new form TelaPrincipal
+     * Creates new form ViewPrincipal
      */
     ViewConsultaCliente viewConsultaCliente = new ViewConsultaCliente();
 
-    public TelaPrincipal() {
+    public ViewPrincipal() {
         initComponents();
+        iniciarTelas();
+
     }
 
     /**
@@ -35,12 +36,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jSplitPane1 = new javax.swing.JSplitPane();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTree1 = new javax.swing.JTree();
-        jDesktopPane2 = new javax.swing.JDesktopPane();
+        jDesktopPaneCentral = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
+        jMenuCliente = new javax.swing.JMenu();
+        jMenuItemCadastrar = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -49,22 +50,37 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 854, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 63, Short.MAX_VALUE)
         );
 
-        jScrollPane1.setViewportView(jTree1);
+        jMenuCliente.setText("Cliente");
 
-        jSplitPane1.setLeftComponent(jScrollPane1);
-        jSplitPane1.setRightComponent(jDesktopPane2);
+        jMenuItemCadastrar.setText("Cadastrar");
+        jMenuItemCadastrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuItemCadastrarMouseClicked(evt);
+            }
+        });
+        jMenuItemCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemCadastrarActionPerformed(evt);
+            }
+        });
+        jMenuCliente.add(jMenuItemCadastrar);
 
-        jMenu1.setText("File");
-        jMenuBar1.add(jMenu1);
+        jMenuItem2.setText("Consultar");
+        jMenuCliente.add(jMenuItem2);
 
-        jMenu2.setText("Edit");
+        jMenuItem1.setText("Editar");
+        jMenuCliente.add(jMenuItem1);
+
+        jMenuBar1.add(jMenuCliente);
+
+        jMenu2.setText("Venda");
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -74,18 +90,28 @@ public class TelaPrincipal extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 970, Short.MAX_VALUE)
+            .addComponent(jDesktopPaneCentral)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 374, Short.MAX_VALUE))
+                .addComponent(jDesktopPaneCentral, javax.swing.GroupLayout.DEFAULT_SIZE, 325, Short.MAX_VALUE)
+                .addGap(19, 19, 19))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jMenuItemCadastrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItemCadastrarMouseClicked
+
+    }//GEN-LAST:event_jMenuItemCadastrarMouseClicked
+
+    private void jMenuItemCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCadastrarActionPerformed
+        trocarTelas(viewConsultaCliente);
+        System.out.println("teste");
+    }//GEN-LAST:event_jMenuItemCadastrarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -104,27 +130,28 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ViewPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ViewPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ViewPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ViewPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaPrincipal().setVisible(true);
+                new ViewPrincipal().setVisible(true);
             }
         });
     }
 
     public void iniciarTelas() {
 
-        jDesktopPane2.add(viewConsultaCliente);
+        jDesktopPaneCentral.add(viewConsultaCliente);
         try {
             viewConsultaCliente.setMaximum(true);
         } catch (PropertyVetoException e) {
@@ -137,37 +164,21 @@ public class TelaPrincipal extends javax.swing.JFrame {
         viewConsultaCliente.setVisible(false);
 
         if (jInternalFrame != null)
-            jInternalFrame.setVisible(false);
+            jInternalFrame.setVisible(true);
     }
 
-    public void trocarTelasArvore() {
-        DefaultMutableTreeNode node = (DefaultMutableTreeNode) jTree1.getLastSelectedPathComponent();
-
-        if (node == null) {
-            return;
-        }
-        if (!node.isLeaf()) {
-            return;
-        }
-
-        DefaultMutableTreeNode parent = (DefaultMutableTreeNode) node.getParent();
-        String no_filho = node.toString();
-        String no_pai = parent.toString();
-
-        if (no_filho.equals("Consultar Cliente") && no_pai.endsWith("Cadastrar")) {
-            trocarTelas(viewConsultaCliente);
-        }
+    public void trocarTelaMenu() {
 
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JDesktopPane jDesktopPane2;
-    private javax.swing.JMenu jMenu1;
+    private javax.swing.JDesktopPane jDesktopPaneCentral;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenu jMenuCliente;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItemCadastrar;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSplitPane jSplitPane1;
-    private javax.swing.JTree jTree1;
     // End of variables declaration//GEN-END:variables
 }
