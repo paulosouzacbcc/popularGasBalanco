@@ -8,6 +8,7 @@ package view;
 import java.beans.PropertyVetoException;
 import javax.swing.JInternalFrame;
 import view.cliente.ViewConsultaCliente;
+import view.cliente.ViewCadastroClienteJDialog;
 
 /**
  *
@@ -19,6 +20,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
      * Creates new form ViewPrincipal
      */
     ViewConsultaCliente viewConsultaCliente = new ViewConsultaCliente();
+    ViewCadastroClienteJDialog viewCadastroCliente = new ViewCadastroClienteJDialog();
 
     public ViewPrincipal() {
         initComponents();
@@ -35,7 +37,6 @@ public class ViewPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
         jDesktopPaneCentral = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuCliente = new javax.swing.JMenu();
@@ -45,17 +46,6 @@ public class ViewPrincipal extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 854, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 63, Short.MAX_VALUE)
-        );
 
         jMenuCliente.setText("Cliente");
 
@@ -73,6 +63,11 @@ public class ViewPrincipal extends javax.swing.JFrame {
         jMenuCliente.add(jMenuItemCadastrar);
 
         jMenuItem2.setText("Consultar");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenuCliente.add(jMenuItem2);
 
         jMenuItem1.setText("Editar");
@@ -89,16 +84,11 @@ public class ViewPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jDesktopPaneCentral)
+            .addComponent(jDesktopPaneCentral, javax.swing.GroupLayout.DEFAULT_SIZE, 854, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jDesktopPaneCentral, javax.swing.GroupLayout.DEFAULT_SIZE, 325, Short.MAX_VALUE)
-                .addGap(19, 19, 19))
+            .addComponent(jDesktopPaneCentral, javax.swing.GroupLayout.DEFAULT_SIZE, 413, Short.MAX_VALUE)
         );
 
         pack();
@@ -109,9 +99,14 @@ public class ViewPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemCadastrarMouseClicked
 
     private void jMenuItemCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCadastrarActionPerformed
-        trocarTelas(viewConsultaCliente);
+        //trocarTelas(viewC);
         System.out.println("teste");
     }//GEN-LAST:event_jMenuItemCadastrarActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+        trocarTelas(viewConsultaCliente);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -152,8 +147,10 @@ public class ViewPrincipal extends javax.swing.JFrame {
     public void iniciarTelas() {
 
         jDesktopPaneCentral.add(viewConsultaCliente);
+        
         try {
             viewConsultaCliente.setMaximum(true);
+            
         } catch (PropertyVetoException e) {
             System.err.println(" Exception maximizar internal\n " + e);
         }
@@ -179,6 +176,5 @@ public class ViewPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItemCadastrar;
-    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
