@@ -35,5 +35,15 @@ public class ClienteJpa extends ClienteJpaController {
         }
         return null;
     }
+    public List<Cliente> selectAllCliente(){
+        try {
+            EntityManager entityManager = super.getEntityManager();
+            Query query = entityManager.createQuery("SELECT c FROM Cliente c ORDER BY c.nome ASC");
+            return query.getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 }

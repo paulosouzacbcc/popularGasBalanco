@@ -48,7 +48,7 @@ public class ViewConsultaCliente extends javax.swing.JInternalFrame {
     }
     public void recarregarTabela(){
         iniciarTabela();
-        preencherTabela(FacadeJpa.getInstance().getCliente().findClienteEntities());
+        preencherTabela(FacadeJpa.getInstance().getCliente().selectAllCliente());
     }
     public void buscarDigitado(String clienteNome){
         iniciarTabela();
@@ -98,8 +98,10 @@ public class ViewConsultaCliente extends javax.swing.JInternalFrame {
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Actions-window-close-icon2.png"))); // NOI18N
         jButton2.setText("Excluir");
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setText("Buscar Cliente:");
 
+        jTextFieldNomeBuscar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jTextFieldNomeBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldNomeBuscarActionPerformed(evt);
@@ -174,7 +176,8 @@ public class ViewConsultaCliente extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-            recarregarTabela();
+        jTextFieldNomeBuscar.setText("");
+        recarregarTabela();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jTextFieldNomeBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNomeBuscarActionPerformed

@@ -56,24 +56,38 @@ public class ViewCadastroClienteJDialog extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel1.setText("Nome:");
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel2.setText("Endereço:");
 
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel3.setText("Número:");
 
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel4.setText("Perímetro:");
 
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel5.setText("Telefone:");
 
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel6.setText("Observação:");
 
+        jTextFieldNome.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        jTextFieldEndereco.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        jTextFieldNumero.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jTextFieldNumero.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTextFieldNumeroKeyTyped(evt);
             }
         });
 
+        jTextFieldPerimetro.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        jTextFieldTelefone.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jTextFieldTelefone.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldTelefoneActionPerformed(evt);
@@ -86,6 +100,7 @@ public class ViewCadastroClienteJDialog extends javax.swing.JDialog {
         });
 
         jTextAreaObservacao.setColumns(20);
+        jTextAreaObservacao.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jTextAreaObservacao.setRows(5);
         jScrollPane1.setViewportView(jTextAreaObservacao);
 
@@ -124,7 +139,7 @@ public class ViewCadastroClienteJDialog extends javax.swing.JDialog {
                             .addComponent(jTextFieldNumero)
                             .addComponent(jTextFieldPerimetro)
                             .addComponent(jTextFieldTelefone)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 440, Short.MAX_VALUE)))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 435, Short.MAX_VALUE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jButtonSalvar)
