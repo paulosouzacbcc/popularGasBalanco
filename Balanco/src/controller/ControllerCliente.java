@@ -16,15 +16,16 @@ public class ControllerCliente {
 
     private final FacadeJpa facadeJpa = FacadeJpa.getInstance();
 
-    public void criarNovoCliente(Cliente cliente) {
+    public boolean criarNovoCliente(Cliente cliente) {
 
         try {
             facadeJpa.getCliente().create(cliente);
-            System.out.println("Salvo!");
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+        return false;
     }
 
 }

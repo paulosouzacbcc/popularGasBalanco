@@ -8,7 +8,7 @@ package view;
 import java.beans.PropertyVetoException;
 import javax.swing.JInternalFrame;
 import view.cliente.ViewConsultaCliente;
-import view.cliente.ViewCadastroClienteJDialog;
+
 
 /**
  *
@@ -20,11 +20,12 @@ public class ViewPrincipal extends javax.swing.JFrame {
      * Creates new form ViewPrincipal
      */
     ViewConsultaCliente viewConsultaCliente = new ViewConsultaCliente();
-    ViewCadastroClienteJDialog viewCadastroCliente = new ViewCadastroClienteJDialog();
+    
 
     public ViewPrincipal() {
         initComponents();
         iniciarTelas();
+        
 
     }
 
@@ -38,75 +39,49 @@ public class ViewPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         jDesktopPaneCentral = new javax.swing.JDesktopPane();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenuCliente = new javax.swing.JMenu();
-        jMenuItemCadastrar = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jMenuCliente.setText("Cliente");
-
-        jMenuItemCadastrar.setText("Cadastrar");
-        jMenuItemCadastrar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenuItemCadastrarMouseClicked(evt);
-            }
-        });
-        jMenuItemCadastrar.addActionListener(new java.awt.event.ActionListener() {
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/rc2.png"))); // NOI18N
+        jButton1.setText("Cliente");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemCadastrarActionPerformed(evt);
+                jButton1ActionPerformed(evt);
             }
         });
-        jMenuCliente.add(jMenuItemCadastrar);
 
-        jMenuItem2.setText("Consultar");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
-            }
-        });
-        jMenuCliente.add(jMenuItem2);
-
-        jMenuItem1.setText("Editar");
-        jMenuCliente.add(jMenuItem1);
-
-        jMenuBar1.add(jMenuCliente);
-
-        jMenu2.setText("Venda");
-        jMenuBar1.add(jMenu2);
-
-        setJMenuBar(jMenuBar1);
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon-ecommerce-app2.png"))); // NOI18N
+        jButton2.setText("Vendas");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jDesktopPaneCentral, javax.swing.GroupLayout.DEFAULT_SIZE, 854, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton2)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPaneCentral, javax.swing.GroupLayout.DEFAULT_SIZE, 413, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jDesktopPaneCentral, javax.swing.GroupLayout.DEFAULT_SIZE, 377, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItemCadastrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItemCadastrarMouseClicked
-
-    }//GEN-LAST:event_jMenuItemCadastrarMouseClicked
-
-    private void jMenuItemCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCadastrarActionPerformed
-        //trocarTelas(viewC);
-        System.out.println("teste");
-    }//GEN-LAST:event_jMenuItemCadastrarActionPerformed
-
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        // TODO add your handling code here:
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         trocarTelas(viewConsultaCliente);
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -148,8 +123,10 @@ public class ViewPrincipal extends javax.swing.JFrame {
 
         jDesktopPaneCentral.add(viewConsultaCliente);
         
+        
         try {
             viewConsultaCliente.setMaximum(true);
+            
             
         } catch (PropertyVetoException e) {
             System.err.println(" Exception maximizar internal\n " + e);
@@ -169,12 +146,8 @@ public class ViewPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JDesktopPane jDesktopPaneCentral;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenu jMenuCliente;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItemCadastrar;
     // End of variables declaration//GEN-END:variables
 }

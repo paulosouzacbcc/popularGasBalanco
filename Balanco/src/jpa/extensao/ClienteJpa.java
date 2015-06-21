@@ -5,7 +5,13 @@
  */
 package jpa.extensao;
 
+import com.sun.org.apache.bcel.internal.generic.Select;
+import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import jpa.ClienteJpaController;
+import model.Cliente;
+import org.w3c.dom.Entity;
 import util.Conexao;
 
 /**
@@ -16,6 +22,18 @@ public class ClienteJpa extends ClienteJpaController {
 
     public ClienteJpa() {
         super(Conexao.conectar());
+    }
+    
+    public List<Cliente> findByNome(String nome){
+        try {
+            EntityManager entityManager = super.getEntityManager();
+            Query query = entityManager.createQuery("SELECT c FROM Cliente c WHERE c.nome LIKE :nome ORDER BY c.nome ASC");
+            query.setParameter("nome", nome + "%");
+            return query.getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }
