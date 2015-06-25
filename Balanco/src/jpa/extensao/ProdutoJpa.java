@@ -31,12 +31,23 @@ public class ProdutoJpa extends ProdutoJpaController{
         }
         return null;
     }
-    public List<Produto> findByNome(String produto){
+    public List<Produto> findByNomeList(String produto){
         try {
             EntityManager entityManager = super.getEntityManager();
             Query query = entityManager.createQuery("SELECT p FROM Produto p WHERE p.nome LIKE :produto ORDER BY p.nome ASC");
             query.setParameter("produto", produto + "%");
             return query.getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    public Produto findByNomeSingle(String produto){
+        try {
+            EntityManager entityManager = super.getEntityManager();
+            Query query = entityManager.createQuery("SELECT p FROM Produto p WHERE p.nome =:produto ORDER BY p.nome ASC");
+            query.setParameter("produto", produto);
+            return (Produto) query.getSingleResult();
         } catch (Exception e) {
             e.printStackTrace();
         }

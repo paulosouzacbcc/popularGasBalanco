@@ -19,11 +19,29 @@ public class ViewNovoProduto extends javax.swing.JDialog {
     /**
      * Creates new form ViewNovoProduto
      */
+    boolean novoProduto = false;
+    Produto produto = new Produto();
+    
     public ViewNovoProduto(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         this.pack();
         this.setLocationRelativeTo(this);
+    }
+    public void editarProduto(Produto produtoUsuario){
+        
+        setTitle("Editar Produto");
+        jTextFieldNome.setText(produtoUsuario.getNome());
+        jTextFieldValor.setText(String.valueOf(produtoUsuario.getValor()));
+        novoProduto = false;
+        produto = produtoUsuario;
+        
+        
+        
+    }
+    public void cadastrarProduto(){
+        setTitle("Cadstrar Novo Produto");
+        novoProduto = true;
     }
     
     public boolean validaCampos(){
@@ -142,20 +160,28 @@ public class ViewNovoProduto extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
-        boolean save =false;
+
+        boolean save = false;
         if (validaCampos()){
             
-            Produto produto = new Produto();
+            
             produto.setNome(jTextFieldNome.getText());
             produto.setValor(Double.parseDouble(jTextFieldValor.getText()));
 
             ControllerProduto controllerProduto = new ControllerProduto();
-            save = controllerProduto.criarNovoProduto(produto);
             
-            if (save) {
-                JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
-                this.dispose();
+            if(novoProduto){
+                save = controllerProduto.criarNovoProduto(produto);
+                if (save) JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
+                else JOptionPane.showMessageDialog(null, "Erro ao Salvar.");
+            }else {
+                save = controllerProduto.editarProduto(produto);
+                if(save) JOptionPane.showMessageDialog(null, "Editado com sucesso!");
+                else JOptionPane.showMessageDialog(null, "Erro ao Editar.");
             }
+
+            this.dispose();
+            
                 
         }
     }//GEN-LAST:event_jButtonSalvarActionPerformed

@@ -215,8 +215,6 @@ public class ViewNovoCliente extends javax.swing.JDialog {
             save = controllerCliente.criarNovoCliente(cliente);
             if (save) {
                 JOptionPane.showMessageDialog(null, "Salvo com Sucesso!");
-                ViewConsultaCliente viewConsultaCliente = new ViewConsultaCliente();
-                viewConsultaCliente.recarregarTabela();
                 this.dispose();
             }
             

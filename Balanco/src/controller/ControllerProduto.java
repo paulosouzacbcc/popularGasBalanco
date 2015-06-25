@@ -28,4 +28,14 @@ public class ControllerProduto {
         return false;
     }
     
+    public boolean editarProduto(Produto produto){
+        try {
+            facadeJpa.getProduto().edit(produto);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
 }

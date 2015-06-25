@@ -5,6 +5,7 @@
  */
 package view.produto;
 
+import controller.ControllerProduto;
 import facade.FacadeJpa;
 import java.util.List;
 import model.Produto;
@@ -49,12 +50,21 @@ public class ViewConsultaProduto extends javax.swing.JInternalFrame {
     public void recarregarTabela(){
         iniciarTabela();
         preencherTabela(FacadeJpa.getInstance().getProduto().selectAllProdutos());
+        jTextFieldBuscar.setText("");
     }
     public void buscarDigitado(String produto){
         iniciarTabela();
-        preencherTabela(FacadeJpa.getInstance().getProduto().findByNome(produto));
+        preencherTabela(FacadeJpa.getInstance().getProduto().findByNomeList(produto));
     }
-
+    
+    public Produto getProdutoTable(){
+        return FacadeJpa.getInstance().getProduto().findByNomeSingle(captureNomeLinhaTabela());
+        
+    }
+    public String captureNomeLinhaTabela(){
+        return jTableProduto.getValueAt(jTableProduto.getSelectedRow() , 0).toString();
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -102,6 +112,11 @@ public class ViewConsultaProduto extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTableProduto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableProdutoMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableProduto);
 
         jButtonExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/excluir.png"))); // NOI18N
@@ -145,7 +160,7 @@ public class ViewConsultaProduto extends javax.swing.JInternalFrame {
                         .addComponent(jLabel1)
                         .addComponent(jTextFieldBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonExcluir)
@@ -169,19 +184,28 @@ public class ViewConsultaProduto extends javax.swing.JInternalFrame {
 
     private void jButtonNovoProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNovoProdutoActionPerformed
         ViewNovoProduto viewNovoProduto = new ViewNovoProduto(null, true);
-        viewNovoProduto.setTitle("Cadastrar Novo Produto");
+        viewNovoProduto.cadastrarProduto();
         viewNovoProduto.setVisible(true);
         recarregarTabela();
     }//GEN-LAST:event_jButtonNovoProdutoActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         recarregarTabela();
-        jTextFieldBuscar.setText("");
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextFieldBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldBuscarActionPerformed
         buscarDigitado(jTextFieldBuscar.getText());
     }//GEN-LAST:event_jTextFieldBuscarActionPerformed
+
+    private void jTableProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableProdutoMouseClicked
+        if(evt.getClickCount() >= 2){
+            ViewNovoProduto viewNovoProduto  = new ViewNovoProduto(null, true);
+            viewNovoProduto.editarProduto(getProdutoTable());
+            viewNovoProduto.setVisible(true);
+            recarregarTabela();
+        }
+    }//GEN-LAST:event_jTableProdutoMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

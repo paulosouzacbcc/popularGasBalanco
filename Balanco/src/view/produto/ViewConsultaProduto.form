@@ -65,7 +65,7 @@
                       </Group>
                   </Group>
                   <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-                  <Component id="jScrollPane1" pref="375" max="32767" attributes="0"/>
+                  <Component id="jScrollPane1" pref="379" max="32767" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jButtonExcluir" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -126,6 +126,9 @@
                   </Table>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTableProdutoMouseClicked"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
