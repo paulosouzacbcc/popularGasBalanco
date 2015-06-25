@@ -8,6 +8,7 @@ package view;
 import java.beans.PropertyVetoException;
 import javax.swing.JInternalFrame;
 import view.cliente.ViewConsultaCliente;
+import view.produto.ViewConsultaProduto;
 
 
 /**
@@ -20,6 +21,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
      * Creates new form ViewPrincipal
      */
     ViewConsultaCliente viewConsultaCliente = new ViewConsultaCliente();
+    ViewConsultaProduto viewConsultaProduto = new ViewConsultaProduto();
     
 
     public ViewPrincipal() {
@@ -45,7 +47,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/rc2.png"))); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/cliente.png"))); // NOI18N
         jButton1.setText("Cliente");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -53,15 +55,25 @@ public class ViewPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon-ecommerce-app2.png"))); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/vendas.png"))); // NOI18N
         jButton2.setText("Vendas");
         jButton2.setMaximumSize(new java.awt.Dimension(111, 51));
         jButton2.setMinimumSize(new java.awt.Dimension(111, 51));
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/cardboard-box2.png"))); // NOI18N
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/produto.png"))); // NOI18N
         jButton3.setText("Produtos");
         jButton3.setMaximumSize(new java.awt.Dimension(111, 51));
         jButton3.setMinimumSize(new java.awt.Dimension(111, 51));
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -79,12 +91,13 @@ public class ViewPrincipal extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton1)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jDesktopPaneCentral, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE))
+                .addComponent(jDesktopPaneCentral, javax.swing.GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE))
         );
 
         pack();
@@ -93,6 +106,14 @@ public class ViewPrincipal extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         trocarTelas(viewConsultaCliente);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        trocarTelas(viewConsultaProduto);
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -133,10 +154,12 @@ public class ViewPrincipal extends javax.swing.JFrame {
     public void iniciarTelas() {
 
         jDesktopPaneCentral.add(viewConsultaCliente);
+        jDesktopPaneCentral.add(viewConsultaProduto);
         
         
         try {
             viewConsultaCliente.setMaximum(true);
+            viewConsultaProduto.setMaximum(true);
             
             
         } catch (PropertyVetoException e) {
@@ -147,6 +170,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
     public void trocarTelas(JInternalFrame jInternalFrame) {
 
         viewConsultaCliente.setVisible(false);
+        viewConsultaProduto.setVisible(false);
 
         if (jInternalFrame != null)
             jInternalFrame.setVisible(true);

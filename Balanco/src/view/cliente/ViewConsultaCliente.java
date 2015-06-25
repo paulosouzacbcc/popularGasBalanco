@@ -25,6 +25,7 @@ public class ViewConsultaCliente extends javax.swing.JInternalFrame {
     public ViewConsultaCliente() {
         initComponents();
         Internal.retiraBotao(this);
+        this.pack();
         recarregarTabela();
     }
 
@@ -87,15 +88,15 @@ public class ViewConsultaCliente extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(jTableCliente);
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/usuario_adicionar2.png"))); // NOI18N
-        jButton1.setText("Adicionar Cliente");
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/novoCliente.png"))); // NOI18N
+        jButton1.setText("Novo Cliente");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Actions-window-close-icon2.png"))); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/excluir.png"))); // NOI18N
         jButton2.setText("Excluir");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -147,11 +148,11 @@ public class ViewConsultaCliente extends javax.swing.JInternalFrame {
                         .addComponent(jLabel1)
                         .addComponent(jTextFieldNomeBuscar)))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton2)
+                    .addComponent(jButton1)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -169,7 +170,7 @@ public class ViewConsultaCliente extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        ViewCadastroClienteJDialog viewCadastroClienteJDialog2 = new ViewCadastroClienteJDialog(null, true);
+        ViewNovoCliente viewCadastroClienteJDialog2 = new ViewNovoCliente(null, true);
         viewCadastroClienteJDialog2.setTitle("Cadastro de Cliente");
         viewCadastroClienteJDialog2.setVisible(true);
         recarregarTabela();

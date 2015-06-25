@@ -7,7 +7,9 @@ package model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -15,14 +17,16 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author paulosouza
+ * @author Paulo
  */
 @Entity
 @Table(name = "venda")
@@ -32,7 +36,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Venda.findByIdvenda", query = "SELECT v FROM Venda v WHERE v.vendaPK.idvenda = :idvenda"),
     @NamedQuery(name = "Venda.findByData", query = "SELECT v FROM Venda v WHERE v.data = :data"),
     @NamedQuery(name = "Venda.findByIdcliente", query = "SELECT v FROM Venda v WHERE v.vendaPK.idcliente = :idcliente"),
-    @NamedQuery(name = "Venda.findByValor", query = "SELECT v FROM Venda v WHERE v.valor = :valor")})
+    @NamedQuery(name = "Venda.findByValor", query = "SELECT v FROM Venda v WHERE v.valor = :valor"),
+    @NamedQuery(name = "Venda.findByDesconto", query = "SELECT v FROM Venda v WHERE v.desconto = :desconto")})
 public class Venda implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
@@ -44,9 +49,14 @@ public class Venda implements Serializable {
     @Basic(optional = false)
     @Column(name = "valor")
     private double valor;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "desconto")
+    private Double desconto;
     @JoinColumn(name = "idcliente", referencedColumnName = "idcliente", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Cliente cliente;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "venda")
+    private List<Vendaproduto> vendaprodutoList;
 
     public Venda() {
     }
@@ -89,12 +99,29 @@ public class Venda implements Serializable {
         this.valor = valor;
     }
 
+    public Double getDesconto() {
+        return desconto;
+    }
+
+    public void setDesconto(Double desconto) {
+        this.desconto = desconto;
+    }
+
     public Cliente getCliente() {
         return cliente;
     }
 
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
+    }
+
+    @XmlTransient
+    public List<Vendaproduto> getVendaprodutoList() {
+        return vendaprodutoList;
+    }
+
+    public void setVendaprodutoList(List<Vendaproduto> vendaprodutoList) {
+        this.vendaprodutoList = vendaprodutoList;
     }
 
     @Override
@@ -111,8 +138,9 @@ public class Venda implements Serializable {
             return false;
         }
         Venda other = (Venda) object;
-        if ((this.vendaPK == null && other.vendaPK != null) || (this.vendaPK != null && !this.vendaPK.equals(other.vendaPK)))
+        if ((this.vendaPK == null && other.vendaPK != null) || (this.vendaPK != null && !this.vendaPK.equals(other.vendaPK))) {
             return false;
+        }
         return true;
     }
 
@@ -120,5 +148,5 @@ public class Venda implements Serializable {
     public String toString() {
         return "model.Venda[ vendaPK=" + vendaPK + " ]";
     }
-
+    
 }

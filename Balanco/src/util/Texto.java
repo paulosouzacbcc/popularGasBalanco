@@ -26,4 +26,12 @@ public class Texto {
         SimpleDateFormat sdf = new SimpleDateFormat("dd / MMMM / yyyy");
         return sdf.format(data);
     }
+    
+    public static void somenteNumeros(java.awt.event.KeyEvent evt){
+        
+        String caracteres = "0987654321.";
+        if (!caracteres.contains(evt.getKeyChar() + "")) {
+            evt.consume();
+        }
+    }
 }

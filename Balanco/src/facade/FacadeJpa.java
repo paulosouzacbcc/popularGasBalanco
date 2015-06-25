@@ -6,7 +6,9 @@
 package facade;
 
 import jpa.extensao.ClienteJpa;
+import jpa.extensao.ProdutoJpa;
 import jpa.extensao.VendaJpa;
+import model.Produto;
 
 /**
  *
@@ -18,10 +20,12 @@ public class FacadeJpa {
 
     private final ClienteJpa clienteJpa;
     private final VendaJpa vendaJpa;
+    private final ProdutoJpa produtoJpa;
 
     public FacadeJpa() {
         clienteJpa = new ClienteJpa();
         vendaJpa = new VendaJpa();
+        produtoJpa = new ProdutoJpa();
 
     }
 
@@ -38,6 +42,10 @@ public class FacadeJpa {
 
     public ClienteJpa getCliente() {
         return clienteJpa;
+    }
+    
+    public ProdutoJpa getProduto(){
+        return produtoJpa;
     }
 
 }

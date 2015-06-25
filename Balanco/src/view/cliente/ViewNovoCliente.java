@@ -8,12 +8,13 @@ package view.cliente;
 import controller.ControllerCliente;
 import javax.swing.JOptionPane;
 import model.Cliente;
+import util.Texto;
 
 /**
  *
  * @author Paulo
  */
-public class ViewCadastroClienteJDialog extends javax.swing.JDialog {
+public class ViewNovoCliente extends javax.swing.JDialog {
 
     /**
      * Creates new form ViewCadastroClienteJDialog2
@@ -21,7 +22,7 @@ public class ViewCadastroClienteJDialog extends javax.swing.JDialog {
     
     private Cliente cliente = new Cliente();
     
-    public ViewCadastroClienteJDialog(java.awt.Frame parent, boolean modal) {
+    public ViewNovoCliente(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         this.setLocationRelativeTo(null);
@@ -56,22 +57,22 @@ public class ViewCadastroClienteJDialog extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setText("Nome:");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Endereço:");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("Número:");
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setText("Perímetro:");
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel5.setText("Telefone:");
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel6.setText("Observação:");
 
         jTextFieldNome.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -139,7 +140,7 @@ public class ViewCadastroClienteJDialog extends javax.swing.JDialog {
                             .addComponent(jTextFieldNumero)
                             .addComponent(jTextFieldPerimetro)
                             .addComponent(jTextFieldTelefone)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 435, Short.MAX_VALUE)))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jButtonSalvar)
@@ -232,11 +233,11 @@ public class ViewCadastroClienteJDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_jTextFieldTelefoneActionPerformed
 
     private void jTextFieldNumeroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNumeroKeyTyped
-        jTextFieldSomenteNumeros(evt);
+        Texto.somenteNumeros(evt);
     }//GEN-LAST:event_jTextFieldNumeroKeyTyped
 
     private void jTextFieldTelefoneKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldTelefoneKeyTyped
-        jTextFieldSomenteNumeros(evt);
+        Texto.somenteNumeros(evt);
     }//GEN-LAST:event_jTextFieldTelefoneKeyTyped
 
     /**
@@ -256,21 +257,23 @@ public class ViewCadastroClienteJDialog extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ViewCadastroClienteJDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ViewNovoCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ViewCadastroClienteJDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ViewNovoCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ViewCadastroClienteJDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ViewNovoCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ViewCadastroClienteJDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ViewNovoCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                ViewCadastroClienteJDialog dialog = new ViewCadastroClienteJDialog(new javax.swing.JFrame(), true);
+                ViewNovoCliente dialog = new ViewNovoCliente(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

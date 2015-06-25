@@ -6,22 +6,25 @@
 package jpa;
 
 import java.io.Serializable;
-import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import model.Cliente;
+import model.Vendaproduto;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import jpa.exceptions.IllegalOrphanException;
 import jpa.exceptions.NonexistentEntityException;
 import jpa.exceptions.PreexistingEntityException;
-import model.Cliente;
 import model.Venda;
 import model.VendaPK;
 
 /**
  *
- * @author paulosouza
+ * @author Paulo
  */
 public class VendaJpaController implements Serializable {
 
@@ -38,6 +41,9 @@ public class VendaJpaController implements Serializable {
         if (venda.getVendaPK() == null) {
             venda.setVendaPK(new VendaPK());
         }
+        if (venda.getVendaprodutoList() == null) {
+            venda.setVendaprodutoList(new ArrayList<Vendaproduto>());
+        }
         venda.getVendaPK().setIdcliente(venda.getCliente().getIdcliente());
         EntityManager em = null;
         try {
@@ -48,10 +54,25 @@ public class VendaJpaController implements Serializable {
                 cliente = em.getReference(cliente.getClass(), cliente.getIdcliente());
                 venda.setCliente(cliente);
             }
+            List<Vendaproduto> attachedVendaprodutoList = new ArrayList<Vendaproduto>();
+            for (Vendaproduto vendaprodutoListVendaprodutoToAttach : venda.getVendaprodutoList()) {
+                vendaprodutoListVendaprodutoToAttach = em.getReference(vendaprodutoListVendaprodutoToAttach.getClass(), vendaprodutoListVendaprodutoToAttach.getId());
+                attachedVendaprodutoList.add(vendaprodutoListVendaprodutoToAttach);
+            }
+            venda.setVendaprodutoList(attachedVendaprodutoList);
             em.persist(venda);
             if (cliente != null) {
                 cliente.getVendaList().add(venda);
                 cliente = em.merge(cliente);
+            }
+            for (Vendaproduto vendaprodutoListVendaproduto : venda.getVendaprodutoList()) {
+                Venda oldVendaOfVendaprodutoListVendaproduto = vendaprodutoListVendaproduto.getVenda();
+                vendaprodutoListVendaproduto.setVenda(venda);
+                vendaprodutoListVendaproduto = em.merge(vendaprodutoListVendaproduto);
+                if (oldVendaOfVendaprodutoListVendaproduto != null) {
+                    oldVendaOfVendaprodutoListVendaproduto.getVendaprodutoList().remove(vendaprodutoListVendaproduto);
+                    oldVendaOfVendaprodutoListVendaproduto = em.merge(oldVendaOfVendaprodutoListVendaproduto);
+                }
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -66,7 +87,7 @@ public class VendaJpaController implements Serializable {
         }
     }
 
-    public void edit(Venda venda) throws NonexistentEntityException, Exception {
+    public void edit(Venda venda) throws IllegalOrphanException, NonexistentEntityException, Exception {
         venda.getVendaPK().setIdcliente(venda.getCliente().getIdcliente());
         EntityManager em = null;
         try {
@@ -75,10 +96,31 @@ public class VendaJpaController implements Serializable {
             Venda persistentVenda = em.find(Venda.class, venda.getVendaPK());
             Cliente clienteOld = persistentVenda.getCliente();
             Cliente clienteNew = venda.getCliente();
+            List<Vendaproduto> vendaprodutoListOld = persistentVenda.getVendaprodutoList();
+            List<Vendaproduto> vendaprodutoListNew = venda.getVendaprodutoList();
+            List<String> illegalOrphanMessages = null;
+            for (Vendaproduto vendaprodutoListOldVendaproduto : vendaprodutoListOld) {
+                if (!vendaprodutoListNew.contains(vendaprodutoListOldVendaproduto)) {
+                    if (illegalOrphanMessages == null) {
+                        illegalOrphanMessages = new ArrayList<String>();
+                    }
+                    illegalOrphanMessages.add("You must retain Vendaproduto " + vendaprodutoListOldVendaproduto + " since its venda field is not nullable.");
+                }
+            }
+            if (illegalOrphanMessages != null) {
+                throw new IllegalOrphanException(illegalOrphanMessages);
+            }
             if (clienteNew != null) {
                 clienteNew = em.getReference(clienteNew.getClass(), clienteNew.getIdcliente());
                 venda.setCliente(clienteNew);
             }
+            List<Vendaproduto> attachedVendaprodutoListNew = new ArrayList<Vendaproduto>();
+            for (Vendaproduto vendaprodutoListNewVendaprodutoToAttach : vendaprodutoListNew) {
+                vendaprodutoListNewVendaprodutoToAttach = em.getReference(vendaprodutoListNewVendaprodutoToAttach.getClass(), vendaprodutoListNewVendaprodutoToAttach.getId());
+                attachedVendaprodutoListNew.add(vendaprodutoListNewVendaprodutoToAttach);
+            }
+            vendaprodutoListNew = attachedVendaprodutoListNew;
+            venda.setVendaprodutoList(vendaprodutoListNew);
             venda = em.merge(venda);
             if (clienteOld != null && !clienteOld.equals(clienteNew)) {
                 clienteOld.getVendaList().remove(venda);
@@ -87,6 +129,17 @@ public class VendaJpaController implements Serializable {
             if (clienteNew != null && !clienteNew.equals(clienteOld)) {
                 clienteNew.getVendaList().add(venda);
                 clienteNew = em.merge(clienteNew);
+            }
+            for (Vendaproduto vendaprodutoListNewVendaproduto : vendaprodutoListNew) {
+                if (!vendaprodutoListOld.contains(vendaprodutoListNewVendaproduto)) {
+                    Venda oldVendaOfVendaprodutoListNewVendaproduto = vendaprodutoListNewVendaproduto.getVenda();
+                    vendaprodutoListNewVendaproduto.setVenda(venda);
+                    vendaprodutoListNewVendaproduto = em.merge(vendaprodutoListNewVendaproduto);
+                    if (oldVendaOfVendaprodutoListNewVendaproduto != null && !oldVendaOfVendaprodutoListNewVendaproduto.equals(venda)) {
+                        oldVendaOfVendaprodutoListNewVendaproduto.getVendaprodutoList().remove(vendaprodutoListNewVendaproduto);
+                        oldVendaOfVendaprodutoListNewVendaproduto = em.merge(oldVendaOfVendaprodutoListNewVendaproduto);
+                    }
+                }
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -105,7 +158,7 @@ public class VendaJpaController implements Serializable {
         }
     }
 
-    public void destroy(VendaPK id) throws NonexistentEntityException {
+    public void destroy(VendaPK id) throws IllegalOrphanException, NonexistentEntityException {
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -116,6 +169,17 @@ public class VendaJpaController implements Serializable {
                 venda.getVendaPK();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The venda with id " + id + " no longer exists.", enfe);
+            }
+            List<String> illegalOrphanMessages = null;
+            List<Vendaproduto> vendaprodutoListOrphanCheck = venda.getVendaprodutoList();
+            for (Vendaproduto vendaprodutoListOrphanCheckVendaproduto : vendaprodutoListOrphanCheck) {
+                if (illegalOrphanMessages == null) {
+                    illegalOrphanMessages = new ArrayList<String>();
+                }
+                illegalOrphanMessages.add("This Venda (" + venda + ") cannot be destroyed since the Vendaproduto " + vendaprodutoListOrphanCheckVendaproduto + " in its vendaprodutoList field has a non-nullable venda field.");
+            }
+            if (illegalOrphanMessages != null) {
+                throw new IllegalOrphanException(illegalOrphanMessages);
             }
             Cliente cliente = venda.getCliente();
             if (cliente != null) {
@@ -176,5 +240,5 @@ public class VendaJpaController implements Serializable {
             em.close();
         }
     }
-
+    
 }

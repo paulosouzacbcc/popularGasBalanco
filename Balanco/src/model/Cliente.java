@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author paulosouza
+ * @author Paulo
  */
 @Entity
 @Table(name = "cliente")
@@ -56,10 +56,8 @@ public class Cliente implements Serializable {
     @Basic(optional = false)
     @Column(name = "telefone")
     private int telefone;
-    @Basic(optional = false)
     @Column(name = "perimetro")
     private String perimetro;
-    @Basic(optional = false)
     @Column(name = "observacao")
     private String observacao;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente")
@@ -72,14 +70,12 @@ public class Cliente implements Serializable {
         this.idcliente = idcliente;
     }
 
-    public Cliente(Integer idcliente, String nome, String endereco, int numerocasa, int telefone, String perimetro, String observacao) {
+    public Cliente(Integer idcliente, String nome, String endereco, int numerocasa, int telefone) {
         this.idcliente = idcliente;
         this.nome = nome;
         this.endereco = endereco;
         this.numerocasa = numerocasa;
         this.telefone = telefone;
-        this.perimetro = perimetro;
-        this.observacao = observacao;
     }
 
     public Integer getIdcliente() {
@@ -161,8 +157,9 @@ public class Cliente implements Serializable {
             return false;
         }
         Cliente other = (Cliente) object;
-        if ((this.idcliente == null && other.idcliente != null) || (this.idcliente != null && !this.idcliente.equals(other.idcliente)))
+        if ((this.idcliente == null && other.idcliente != null) || (this.idcliente != null && !this.idcliente.equals(other.idcliente))) {
             return false;
+        }
         return true;
     }
 
@@ -170,5 +167,5 @@ public class Cliente implements Serializable {
     public String toString() {
         return "model.Cliente[ idcliente=" + idcliente + " ]";
     }
-
+    
 }
