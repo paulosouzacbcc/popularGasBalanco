@@ -27,5 +27,15 @@ public class ControllerCliente {
 
         return false;
     }
+    
+    public boolean editarCliente(Cliente cliente){
+        try {
+            facadeJpa.getCliente().edit(cliente);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 
 }

@@ -7,9 +7,11 @@ package view.cliente;
 
 import facade.FacadeJpa;
 import java.util.List;
+import javax.swing.JOptionPane;
 import model.Cliente;
 import util.Internal;
 import util.MyDefaultTableModel;
+import util.Texto;
 
 /**
  *
@@ -54,9 +56,17 @@ public class ViewConsultaCliente extends javax.swing.JInternalFrame {
     }
     public void buscarDigitado(String clienteNome){
         iniciarTabela();
-        preencherTabela(FacadeJpa.getInstance().getCliente().findByNome(clienteNome));
+        preencherTabela(FacadeJpa.getInstance().getCliente().findByNomeList(clienteNome));
         
     }
+    
+    public void editarCliente(){
+
+        ViewNovoCliente viewNovoCliente = new ViewNovoCliente(null, true);
+        viewNovoCliente.editarCliente(FacadeJpa.getInstance().getCliente().findByNomeSingle(Texto.getLinhaTable(jTableCliente)));
+        viewNovoCliente.setVisible(true);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -120,6 +130,11 @@ public class ViewConsultaCliente extends javax.swing.JInternalFrame {
 
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/edit.png"))); // NOI18N
         jButton4.setText("Editar");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -180,9 +195,9 @@ public class ViewConsultaCliente extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        ViewNovoCliente viewCadastroClienteJDialog2 = new ViewNovoCliente(null, true);
-        viewCadastroClienteJDialog2.setTitle("Cadastro Novo Cliente");
-        viewCadastroClienteJDialog2.setVisible(true);
+        ViewNovoCliente viewNovoCliente = new ViewNovoCliente(null, true);
+        viewNovoCliente.cadastrarNovoCliente();
+        viewNovoCliente.setVisible(true);
         recarregarTabela();
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -193,6 +208,17 @@ public class ViewConsultaCliente extends javax.swing.JInternalFrame {
     private void jTextFieldNomeBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNomeBuscarActionPerformed
         buscarDigitado(jTextFieldNomeBuscar.getText());
     }//GEN-LAST:event_jTextFieldNomeBuscarActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        
+        if (jTableCliente.getSelectedRow() == -1){
+            JOptionPane.showMessageDialog(null, "Selecione um cliente na tabela.");
+            return;
+        }
+        editarCliente();
+        recarregarTabela();
+        
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

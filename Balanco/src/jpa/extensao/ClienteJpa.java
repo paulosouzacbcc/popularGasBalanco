@@ -5,13 +5,11 @@
  */
 package jpa.extensao;
 
-import com.sun.org.apache.bcel.internal.generic.Select;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import jpa.ClienteJpaController;
 import model.Cliente;
-import org.w3c.dom.Entity;
 import util.Conexao;
 
 /**
@@ -20,11 +18,13 @@ import util.Conexao;
  */
 public class ClienteJpa extends ClienteJpaController {
 
-    public ClienteJpa() {
+    public ClienteJpa()
+    {
         super(Conexao.conectar());
     }
-    
-    public List<Cliente> findByNome(String nome){
+
+    public List<Cliente> findByNomeList(String nome)
+    {
         try {
             EntityManager entityManager = super.getEntityManager();
             Query query = entityManager.createQuery("SELECT c FROM Cliente c WHERE c.nome LIKE :nome ORDER BY c.nome ASC");
@@ -35,7 +35,22 @@ public class ClienteJpa extends ClienteJpaController {
         }
         return null;
     }
-    public List<Cliente> selectAllCliente(){
+
+    public Cliente findByNomeSingle(String nome)
+    {
+        try {
+            EntityManager entityManager = super.getEntityManager();
+            Query query = entityManager.createQuery("SELECT c FROM Cliente c WHERE c.nome =:nome ORDER BY c.nome ASC");
+            query.setParameter("nome", nome);
+            return (Cliente) query.getSingleResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<Cliente> selectAllCliente()
+    {
         try {
             EntityManager entityManager = super.getEntityManager();
             Query query = entityManager.createQuery("SELECT c FROM Cliente c ORDER BY c.nome ASC");

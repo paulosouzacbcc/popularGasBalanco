@@ -22,11 +22,31 @@ public class ViewNovoCliente extends javax.swing.JDialog {
     
     private Cliente cliente = new Cliente();
     
+    boolean novoCliente = false;
+    
     public ViewNovoCliente(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         this.setLocationRelativeTo(null);
         this.pack();
+    }
+    
+    public void cadastrarNovoCliente(){
+        setTitle("Cadastrar Novo Cliente");
+        novoCliente = true;
+    }
+    public void editarCliente(Cliente clienteUsuario){
+        cliente = clienteUsuario;
+        setTitle("Editar Cliente");
+        
+        jTextFieldNome.setText(clienteUsuario.getNome());
+        jTextFieldEndereco.setText(clienteUsuario.getEndereco());
+        jTextFieldNumero.setText(String.valueOf(clienteUsuario.getNumerocasa()));
+        jTextFieldPerimetro.setText(clienteUsuario.getPerimetro());
+        jTextFieldTelefone.setText(String.valueOf(clienteUsuario.getTelefone()));
+        jTextAreaObservacao.setText(clienteUsuario.getObservacao());
+        
+        novoCliente = false;
     }
 
     /**
@@ -201,7 +221,7 @@ public class ViewNovoCliente extends javax.swing.JDialog {
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
         
-        if (validaCampos() == true){
+        if (validaCampos()){
            
             boolean save = false;
             cliente.setNome(jTextFieldNome.getText());
@@ -212,11 +232,17 @@ public class ViewNovoCliente extends javax.swing.JDialog {
             cliente.setObservacao(jTextAreaObservacao.getText());
             
             ControllerCliente controllerCliente = new ControllerCliente();
-            save = controllerCliente.criarNovoCliente(cliente);
-            if (save) {
+            
+            if(novoCliente){
+                save = controllerCliente.criarNovoCliente(cliente);
                 JOptionPane.showMessageDialog(null, "Salvo com Sucesso!");
-                this.dispose();
+            }else {
+                save = controllerCliente.editarCliente(cliente);
+                JOptionPane.showMessageDialog(null, "Editado com Sucesso!");
             }
+            
+            if (save) this.dispose();
+            
             
         }
         

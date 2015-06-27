@@ -5,7 +5,11 @@
  */
 package jpa.extensao;
 
+import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import jpa.VendaJpaController;
+import model.Venda;
 import util.Conexao;
 
 /**
@@ -14,7 +18,47 @@ import util.Conexao;
  */
 public class VendaJpa extends VendaJpaController {
 
-    public VendaJpa() {
+    public VendaJpa()
+    {
         super(Conexao.conectar());
+    }
+
+    public List<Venda> selectAllVenda()
+    {
+        try {
+            EntityManager entityManager = super.getEntityManager();
+            Query query = entityManager.createQuery("SELECT v FROM Venda v ORDER BY v.data ASC");
+            return query.getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+
+    }
+
+    public Venda findByNomeSingle(String nome)
+    {
+        try {
+            EntityManager entityManager = super.getEntityManager();
+            Query query = entityManager.createQuery("SELECT v FROM Venda v WHERE v.nomeCliente =:nome");
+            query.setParameter("nome", nome);
+            query.getSingleResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<Venda> findByNomeList(String nome)
+    {
+        try {
+            EntityManager entityManager = super.getEntityManager();
+            Query query = entityManager.createQuery("SELECT v FROM Venda v WHERE v.cliente.nome LIKE :nome ORDER BY v.nomeCliente ASC");
+            query.setParameter("nome", nome + "%");
+            query.getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

@@ -9,6 +9,7 @@ import java.beans.PropertyVetoException;
 import javax.swing.JInternalFrame;
 import view.cliente.ViewConsultaCliente;
 import view.produto.ViewConsultaProduto;
+import view.venda.ViewConsultaVenda;
 
 
 /**
@@ -22,6 +23,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
      */
     ViewConsultaCliente viewConsultaCliente = new ViewConsultaCliente();
     ViewConsultaProduto viewConsultaProduto = new ViewConsultaProduto();
+    ViewConsultaVenda viewConsultaVenda = new ViewConsultaVenda();
     
 
     public ViewPrincipal() {
@@ -108,7 +110,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        
+        trocarTelas(viewConsultaVenda);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -155,11 +157,13 @@ public class ViewPrincipal extends javax.swing.JFrame {
 
         jDesktopPaneCentral.add(viewConsultaCliente);
         jDesktopPaneCentral.add(viewConsultaProduto);
+        jDesktopPaneCentral.add(viewConsultaVenda);
         
         
         try {
             viewConsultaCliente.setMaximum(true);
             viewConsultaProduto.setMaximum(true);
+            viewConsultaVenda.setMaximum(true);
             
             
         } catch (PropertyVetoException e) {
@@ -171,6 +175,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
 
         viewConsultaCliente.setVisible(false);
         viewConsultaProduto.setVisible(false);
+        viewConsultaVenda.setVisible(false);
 
         if (jInternalFrame != null)
             jInternalFrame.setVisible(true);

@@ -2,6 +2,7 @@ package util;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.JTable;
 
 /**
  *
@@ -33,5 +34,9 @@ public class Texto {
         if (!caracteres.contains(evt.getKeyChar() + "")) {
             evt.consume();
         }
+    }
+    public static String getLinhaTable(JTable jTable){
+        return jTable.getValueAt(jTable.getSelectedRow(), 0).toString();
+        
     }
 }

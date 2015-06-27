@@ -5,7 +5,6 @@
  */
 package view.produto;
 
-import controller.ControllerProduto;
 import facade.FacadeJpa;
 import java.util.List;
 import model.Produto;
@@ -21,10 +20,10 @@ public class ViewConsultaProduto extends javax.swing.JInternalFrame {
     /**
      * Creates new form ViewConsultaProduto
      */
-    
     MyDefaultTableModel tableModel;
-    
-    public ViewConsultaProduto() {
+
+    public ViewConsultaProduto()
+    {
         initComponents();
         iniciarTabela();
         recarregarTabela();
@@ -32,39 +31,49 @@ public class ViewConsultaProduto extends javax.swing.JInternalFrame {
         this.pack();
 
     }
-    
-    public void iniciarTabela(){
-        tableModel = new MyDefaultTableModel(new String[] {"Nome" , "Valor"}, 0, false);
+
+    public void iniciarTabela()
+    {
+        tableModel = new MyDefaultTableModel(new String[]{"Nome", "Valor"}, 0, false);
         jTableProduto.setModel(tableModel);
     }
-    public void preencherTabela(List<Produto> listProduto){
+
+    public void preencherTabela(List<Produto> listProduto)
+    {
         for (int i = 0; i < listProduto.size(); i++) {
-            String [] linhas = new String[] {
-            listProduto.get(i).getNome(),
+            String[] linhas = new String[]{
+                listProduto.get(i).getNome(),
                 String.valueOf(listProduto.get(i).getValor())
             };
             tableModel.addRow(linhas);
         }
         jTableProduto.setModel(tableModel);
     }
-    public void recarregarTabela(){
+
+    public void recarregarTabela()
+    {
         iniciarTabela();
         preencherTabela(FacadeJpa.getInstance().getProduto().selectAllProdutos());
         jTextFieldBuscar.setText("");
     }
-    public void buscarDigitado(String produto){
+
+    public void buscarDigitado(String produto)
+    {
         iniciarTabela();
         preencherTabela(FacadeJpa.getInstance().getProduto().findByNomeList(produto));
     }
-    
-    public Produto getProdutoTable(){
+
+    public Produto getProdutoTable()
+    {
         return FacadeJpa.getInstance().getProduto().findByNomeSingle(captureNomeLinhaTabela());
-        
+
     }
-    public String captureNomeLinhaTabela(){
-        return jTableProduto.getValueAt(jTableProduto.getSelectedRow() , 0).toString();
+
+    public String captureNomeLinhaTabela()
+    {
+        return jTableProduto.getValueAt(jTableProduto.getSelectedRow(), 0).toString();
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -72,7 +81,8 @@ public class ViewConsultaProduto extends javax.swing.JInternalFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -87,33 +97,41 @@ public class ViewConsultaProduto extends javax.swing.JInternalFrame {
         jLabel1.setText("Buscar Produto:");
 
         jTextFieldBuscar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextFieldBuscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jTextFieldBuscar.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jTextFieldBuscarActionPerformed(evt);
             }
         });
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Refresh3.png"))); // NOI18N
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jButton1.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jButton1ActionPerformed(evt);
             }
         });
 
-        jTableProduto.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTableProduto.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jTableProduto.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+            new Object [][]
+            {
                 {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null}
             },
-            new String [] {
+            new String []
+            {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jTableProduto.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+        jTableProduto.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt)
+            {
                 jTableProdutoMouseClicked(evt);
             }
         });
@@ -124,8 +142,10 @@ public class ViewConsultaProduto extends javax.swing.JInternalFrame {
 
         jButtonNovoProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Novoproduto2.png"))); // NOI18N
         jButtonNovoProduto.setText("Novo Produto");
-        jButtonNovoProduto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jButtonNovoProduto.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jButtonNovoProdutoActionPerformed(evt);
             }
         });
@@ -191,7 +211,7 @@ public class ViewConsultaProduto extends javax.swing.JInternalFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         recarregarTabela();
-        
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextFieldBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldBuscarActionPerformed
@@ -199,14 +219,13 @@ public class ViewConsultaProduto extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTextFieldBuscarActionPerformed
 
     private void jTableProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableProdutoMouseClicked
-        if(evt.getClickCount() >= 2){
-            ViewNovoProduto viewNovoProduto  = new ViewNovoProduto(null, true);
+        if (evt.getClickCount() >= 2) {
+            ViewNovoProduto viewNovoProduto = new ViewNovoProduto(null, true);
             viewNovoProduto.editarProduto(getProdutoTable());
             viewNovoProduto.setVisible(true);
             recarregarTabela();
         }
     }//GEN-LAST:event_jTableProdutoMouseClicked
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

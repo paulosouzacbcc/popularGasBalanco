@@ -14,6 +14,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -35,8 +36,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Cliente.findByEndereco", query = "SELECT c FROM Cliente c WHERE c.endereco = :endereco"),
     @NamedQuery(name = "Cliente.findByNumerocasa", query = "SELECT c FROM Cliente c WHERE c.numerocasa = :numerocasa"),
     @NamedQuery(name = "Cliente.findByTelefone", query = "SELECT c FROM Cliente c WHERE c.telefone = :telefone"),
-    @NamedQuery(name = "Cliente.findByPerimetro", query = "SELECT c FROM Cliente c WHERE c.perimetro = :perimetro"),
-    @NamedQuery(name = "Cliente.findByObservacao", query = "SELECT c FROM Cliente c WHERE c.observacao = :observacao")})
+    @NamedQuery(name = "Cliente.findByPerimetro", query = "SELECT c FROM Cliente c WHERE c.perimetro = :perimetro")})
 public class Cliente implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -58,6 +58,7 @@ public class Cliente implements Serializable {
     private int telefone;
     @Column(name = "perimetro")
     private String perimetro;
+    @Lob
     @Column(name = "observacao")
     private String observacao;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente")

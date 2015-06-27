@@ -14,6 +14,7 @@ import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -37,7 +38,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Venda.findByData", query = "SELECT v FROM Venda v WHERE v.data = :data"),
     @NamedQuery(name = "Venda.findByIdcliente", query = "SELECT v FROM Venda v WHERE v.vendaPK.idcliente = :idcliente"),
     @NamedQuery(name = "Venda.findByValor", query = "SELECT v FROM Venda v WHERE v.valor = :valor"),
-    @NamedQuery(name = "Venda.findByDesconto", query = "SELECT v FROM Venda v WHERE v.desconto = :desconto")})
+    @NamedQuery(name = "Venda.findByDesconto", query = "SELECT v FROM Venda v WHERE v.desconto = :desconto"),
+    @NamedQuery(name = "Venda.findByNomeCliente", query = "SELECT v FROM Venda v WHERE v.nomeCliente = :nomeCliente")})
 public class Venda implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
@@ -52,6 +54,12 @@ public class Venda implements Serializable {
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "desconto")
     private Double desconto;
+    @Basic(optional = false)
+    @Column(name = "nomeCliente")
+    private String nomeCliente;
+    @Lob
+    @Column(name = "Observacao")
+    private String observacao;
     @JoinColumn(name = "idcliente", referencedColumnName = "idcliente", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Cliente cliente;
@@ -65,10 +73,11 @@ public class Venda implements Serializable {
         this.vendaPK = vendaPK;
     }
 
-    public Venda(VendaPK vendaPK, Date data, double valor) {
+    public Venda(VendaPK vendaPK, Date data, double valor, String nomeCliente) {
         this.vendaPK = vendaPK;
         this.data = data;
         this.valor = valor;
+        this.nomeCliente = nomeCliente;
     }
 
     public Venda(int idvenda, int idcliente) {
@@ -105,6 +114,22 @@ public class Venda implements Serializable {
 
     public void setDesconto(Double desconto) {
         this.desconto = desconto;
+    }
+
+    public String getNomeCliente() {
+        return nomeCliente;
+    }
+
+    public void setNomeCliente(String nomeCliente) {
+        this.nomeCliente = nomeCliente;
+    }
+
+    public String getObservacao() {
+        return observacao;
+    }
+
+    public void setObservacao(String observacao) {
+        this.observacao = observacao;
     }
 
     public Cliente getCliente() {

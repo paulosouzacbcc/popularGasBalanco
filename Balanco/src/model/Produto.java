@@ -14,6 +14,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -46,6 +47,9 @@ public class Produto implements Serializable {
     @Basic(optional = false)
     @Column(name = "valor")
     private double valor;
+    @Lob
+    @Column(name = "Observacao")
+    private String observacao;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "produtoId")
     private List<Vendaproduto> vendaprodutoList;
 
@@ -84,6 +88,14 @@ public class Produto implements Serializable {
 
     public void setValor(double valor) {
         this.valor = valor;
+    }
+
+    public String getObservacao() {
+        return observacao;
+    }
+
+    public void setObservacao(String observacao) {
+        this.observacao = observacao;
     }
 
     @XmlTransient
