@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Paulo
+ * @author paulosouza
  */
 @Entity
 @Table(name = "cliente")
@@ -158,9 +158,8 @@ public class Cliente implements Serializable {
             return false;
         }
         Cliente other = (Cliente) object;
-        if ((this.idcliente == null && other.idcliente != null) || (this.idcliente != null && !this.idcliente.equals(other.idcliente))) {
+        if ((this.idcliente == null && other.idcliente != null) || (this.idcliente != null && !this.idcliente.equals(other.idcliente)))
             return false;
-        }
         return true;
     }
 
@@ -168,5 +167,5 @@ public class Cliente implements Serializable {
     public String toString() {
         return "model.Cliente[ idcliente=" + idcliente + " ]";
     }
-    
+
 }

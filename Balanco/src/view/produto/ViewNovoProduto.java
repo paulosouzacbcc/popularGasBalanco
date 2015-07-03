@@ -21,41 +21,41 @@ public class ViewNovoProduto extends javax.swing.JDialog {
      */
     boolean novoProduto = false;
     Produto produto = new Produto();
-    
+
     public ViewNovoProduto(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         this.pack();
         this.setLocationRelativeTo(this);
     }
-    public void editarProduto(Produto produtoUsuario){
-        
+
+    public void editarProduto(Produto produtoUsuario) {
+
         setTitle("Editar Produto");
         jTextFieldNome.setText(produtoUsuario.getNome());
         jTextFieldValor.setText(String.valueOf(produtoUsuario.getValor()));
         novoProduto = false;
         produto = produtoUsuario;
-        
-        
-        
+
     }
-    public void cadastrarProduto(){
+
+    public void cadastrarProduto() {
         setTitle("Cadstrar Novo Produto");
         novoProduto = true;
     }
-    
-    public boolean validaCampos(){
-        if (jTextFieldNome.getText().isEmpty()){
+
+    public boolean validaCampos() {
+        if (jTextFieldNome.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "O campo ''Nome'' não pode ser vazio.");
             return false;
         }
-        if (jTextFieldValor.getText().isEmpty()){
+        if (jTextFieldValor.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "O campo ''Valor'' não pode ser vazio.");
             return false;
         }
-        
+
         return true;
-            
+
     }
 
     /**
@@ -74,6 +74,9 @@ public class ViewNovoProduto extends javax.swing.JDialog {
         jTextFieldValor = new javax.swing.JTextField();
         jButtonCancelar = new javax.swing.JButton();
         jButtonSalvar = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextAreaObservacao = new javax.swing.JTextArea();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -106,25 +109,33 @@ public class ViewNovoProduto extends javax.swing.JDialog {
             }
         });
 
+        jTextAreaObservacao.setColumns(20);
+        jTextAreaObservacao.setRows(5);
+        jScrollPane1.setViewportView(jTextAreaObservacao);
+
+        jLabel3.setText("Observação:");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonSalvar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonCancelar))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
-                            .addComponent(jLabel2))
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE)
                             .addComponent(jTextFieldValor)
-                            .addComponent(jTextFieldNome)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 206, Short.MAX_VALUE)
-                        .addComponent(jButtonSalvar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonCancelar)))
+                            .addComponent(jTextFieldNome))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -138,7 +149,14 @@ public class ViewNovoProduto extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jTextFieldValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(46, 46, 46)
+                        .addComponent(jLabel3)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonCancelar)
                     .addComponent(jButtonSalvar))
@@ -162,27 +180,30 @@ public class ViewNovoProduto extends javax.swing.JDialog {
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
 
         boolean save = false;
-        if (validaCampos()){
-            
-            
+        if (validaCampos()) {
+
             produto.setNome(jTextFieldNome.getText());
             produto.setValor(Double.parseDouble(jTextFieldValor.getText()));
+            produto.setObservacao(jTextAreaObservacao.getText());
 
             ControllerProduto controllerProduto = new ControllerProduto();
-            
-            if(novoProduto){
+
+            if (novoProduto) {
                 save = controllerProduto.criarNovoProduto(produto);
-                if (save) JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
-                else JOptionPane.showMessageDialog(null, "Erro ao Salvar.");
-            }else {
+                if (save)
+                    JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
+                else
+                    JOptionPane.showMessageDialog(null, "Erro ao Salvar.");
+            } else {
                 save = controllerProduto.editarProduto(produto);
-                if(save) JOptionPane.showMessageDialog(null, "Editado com sucesso!");
-                else JOptionPane.showMessageDialog(null, "Erro ao Editar.");
+                if (save)
+                    JOptionPane.showMessageDialog(null, "Editado com sucesso!");
+                else
+                    JOptionPane.showMessageDialog(null, "Erro ao Editar.");
             }
 
             this.dispose();
-            
-                
+
         }
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
@@ -201,7 +222,7 @@ public class ViewNovoProduto extends javax.swing.JDialog {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -241,7 +262,10 @@ public class ViewNovoProduto extends javax.swing.JDialog {
     private javax.swing.JButton jButtonSalvar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextAreaObservacao;
     private javax.swing.JTextField jTextFieldNome;
     private javax.swing.JTextField jTextFieldValor;
     // End of variables declaration//GEN-END:variables

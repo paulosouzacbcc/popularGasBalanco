@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Paulo
+ * @author paulosouza
  */
 @Entity
 @Table(name = "venda")
@@ -39,7 +39,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Venda.findByIdcliente", query = "SELECT v FROM Venda v WHERE v.vendaPK.idcliente = :idcliente"),
     @NamedQuery(name = "Venda.findByValor", query = "SELECT v FROM Venda v WHERE v.valor = :valor"),
     @NamedQuery(name = "Venda.findByDesconto", query = "SELECT v FROM Venda v WHERE v.desconto = :desconto"),
-    @NamedQuery(name = "Venda.findByNomeCliente", query = "SELECT v FROM Venda v WHERE v.nomeCliente = :nomeCliente")})
+    @NamedQuery(name = "Venda.findByNomeCliente", query = "SELECT v FROM Venda v WHERE v.nomeCliente = :nomeCliente"),
+    @NamedQuery(name = "Venda.findByValorTotal", query = "SELECT v FROM Venda v WHERE v.valorTotal = :valorTotal")})
 public class Venda implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
@@ -60,6 +61,9 @@ public class Venda implements Serializable {
     @Lob
     @Column(name = "Observacao")
     private String observacao;
+    @Basic(optional = false)
+    @Column(name = "valorTotal")
+    private double valorTotal;
     @JoinColumn(name = "idcliente", referencedColumnName = "idcliente", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Cliente cliente;
@@ -73,11 +77,12 @@ public class Venda implements Serializable {
         this.vendaPK = vendaPK;
     }
 
-    public Venda(VendaPK vendaPK, Date data, double valor, String nomeCliente) {
+    public Venda(VendaPK vendaPK, Date data, double valor, String nomeCliente, double valorTotal) {
         this.vendaPK = vendaPK;
         this.data = data;
         this.valor = valor;
         this.nomeCliente = nomeCliente;
+        this.valorTotal = valorTotal;
     }
 
     public Venda(int idvenda, int idcliente) {
@@ -132,6 +137,14 @@ public class Venda implements Serializable {
         this.observacao = observacao;
     }
 
+    public double getValorTotal() {
+        return valorTotal;
+    }
+
+    public void setValorTotal(double valorTotal) {
+        this.valorTotal = valorTotal;
+    }
+
     public Cliente getCliente() {
         return cliente;
     }
@@ -163,9 +176,8 @@ public class Venda implements Serializable {
             return false;
         }
         Venda other = (Venda) object;
-        if ((this.vendaPK == null && other.vendaPK != null) || (this.vendaPK != null && !this.vendaPK.equals(other.vendaPK))) {
+        if ((this.vendaPK == null && other.vendaPK != null) || (this.vendaPK != null && !this.vendaPK.equals(other.vendaPK)))
             return false;
-        }
         return true;
     }
 
@@ -173,5 +185,5 @@ public class Venda implements Serializable {
     public String toString() {
         return "model.Venda[ vendaPK=" + vendaPK + " ]";
     }
-    
+
 }

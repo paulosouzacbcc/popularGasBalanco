@@ -24,7 +24,7 @@ import model.VendaPK;
 
 /**
  *
- * @author Paulo
+ * @author paulosouza
  */
 public class VendaJpaController implements Serializable {
 
@@ -240,5 +240,5 @@ public class VendaJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }

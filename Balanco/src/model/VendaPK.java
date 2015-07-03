@@ -12,7 +12,7 @@ import javax.persistence.Embeddable;
 
 /**
  *
- * @author Paulo
+ * @author paulosouza
  */
 @Embeddable
 public class VendaPK implements Serializable {
@@ -62,12 +62,10 @@ public class VendaPK implements Serializable {
             return false;
         }
         VendaPK other = (VendaPK) object;
-        if (this.idvenda != other.idvenda) {
+        if (this.idvenda != other.idvenda)
             return false;
-        }
-        if (this.idcliente != other.idcliente) {
+        if (this.idcliente != other.idcliente)
             return false;
-        }
         return true;
     }
 
@@ -75,5 +73,5 @@ public class VendaPK implements Serializable {
     public String toString() {
         return "model.VendaPK[ idvenda=" + idvenda + ", idcliente=" + idcliente + " ]";
     }
-    
+
 }

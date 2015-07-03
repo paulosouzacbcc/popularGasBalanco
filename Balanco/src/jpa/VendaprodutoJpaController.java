@@ -20,7 +20,7 @@ import model.Vendaproduto;
 
 /**
  *
- * @author Paulo
+ * @author paulosouza
  */
 public class VendaprodutoJpaController implements Serializable {
 
@@ -193,5 +193,5 @@ public class VendaprodutoJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }

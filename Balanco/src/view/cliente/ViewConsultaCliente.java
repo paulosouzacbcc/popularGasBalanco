@@ -23,7 +23,7 @@ public class ViewConsultaCliente extends javax.swing.JInternalFrame {
      * Creates new form ConsultaCliente
      */
     private MyDefaultTableModel tableModel;
-    
+
     public ViewConsultaCliente() {
         initComponents();
         Internal.retiraBotao(this);
@@ -31,14 +31,15 @@ public class ViewConsultaCliente extends javax.swing.JInternalFrame {
         recarregarTabela();
     }
 
-    public void iniciarTabela(){
-        tableModel = new MyDefaultTableModel(new String[] {"Nome", "Endereço", "Número", "Telefone"}, 0, false);
+    public void iniciarTabela() {
+        tableModel = new MyDefaultTableModel(new String[]{"Nome", "Endereço", "Número", "Telefone"}, 0, false);
         jTableCliente.setModel(tableModel);
     }
-    public void preencherTabela(List<Cliente> listCliente){
-        
+
+    public void preencherTabela(List<Cliente> listCliente) {
+
         for (int i = 0; i < listCliente.size(); i++) {
-            String [] linhas = new String [] {
+            String[] linhas = new String[]{
                 listCliente.get(i).getNome(),
                 listCliente.get(i).getEndereco(),
                 String.valueOf(listCliente.get(i).getNumerocasa()),
@@ -47,26 +48,28 @@ public class ViewConsultaCliente extends javax.swing.JInternalFrame {
             tableModel.addRow(linhas);
         }
         jTableCliente.setModel(tableModel);
-        
+
     }
-    public void recarregarTabela(){
+
+    public void recarregarTabela() {
         iniciarTabela();
         preencherTabela(FacadeJpa.getInstance().getCliente().selectAllCliente());
         jTextFieldNomeBuscar.setText("");
     }
-    public void buscarDigitado(String clienteNome){
+
+    public void buscarDigitado(String clienteNome) {
         iniciarTabela();
         preencherTabela(FacadeJpa.getInstance().getCliente().findByNomeList(clienteNome));
-        
+
     }
-    
-    public void editarCliente(){
+
+    public void editarCliente() {
 
         ViewNovoCliente viewNovoCliente = new ViewNovoCliente(null, true);
-        viewNovoCliente.editarCliente(FacadeJpa.getInstance().getCliente().findByNomeSingle(Texto.getLinhaTable(jTableCliente)));
+        viewNovoCliente.editarCliente(FacadeJpa.getInstance().getCliente().findByNomeSingle(Texto.getLinhaTable(jTableCliente, 0)));
         viewNovoCliente.setVisible(true);
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -210,14 +213,14 @@ public class ViewConsultaCliente extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTextFieldNomeBuscarActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        
-        if (jTableCliente.getSelectedRow() == -1){
+
+        if (jTableCliente.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(null, "Selecione um cliente na tabela.");
             return;
         }
         editarCliente();
         recarregarTabela();
-        
+
     }//GEN-LAST:event_jButton4ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -23,28 +23,26 @@ public class ViewConsultaVenda extends javax.swing.JInternalFrame {
      */
     MyDefaultTableModel tableModel;
 
-    public ViewConsultaVenda()
-    {
+    public ViewConsultaVenda() {
         initComponents();
         iniciarTabela();
         recarregarTabela();
         Internal.retiraBotao(this);
     }
 
-    public void iniciarTabela()
-    {
-        tableModel = new MyDefaultTableModel(new String[]{"Id", "Cliente", "Valor", "Desconto", "Data"}, 0, false);
+    public void iniciarTabela() {
+        tableModel = new MyDefaultTableModel(new String[]{"Id", "Cliente", "Valor", "Desconto", "Valor Total", "Data"}, 0, false);
         jTableVenda.setModel(tableModel);
     }
 
-    public void preencherTabela(List<Venda> listVenda)
-    {
+    public void preencherTabela(List<Venda> listVenda) {
         for (int i = 0; i < listVenda.size(); i++) {
             String[] linhas = new String[]{
                 String.valueOf(listVenda.get(i).getVendaPK().getIdvenda()),
                 listVenda.get(i).getNomeCliente(),
                 String.valueOf(listVenda.get(i).getValor()),
                 String.valueOf(listVenda.get(i).getDesconto()),
+                String.valueOf(listVenda.get(i).getValorTotal()),
                 Texto.formataData(listVenda.get(i).getData())};
             tableModel.addRow(linhas);
 
@@ -52,22 +50,20 @@ public class ViewConsultaVenda extends javax.swing.JInternalFrame {
         jTableVenda.setModel(tableModel);
     }
 
-    public void recarregarTabela()
-    {
+    public void recarregarTabela() {
         iniciarTabela();
         preencherTabela(FacadeJpa.getInstance().getVenda().selectAllVenda());
     }
 
-    public void buscarVendaDigitada(String nome)
-    {
+    public void buscarVendaDigitada(String nome) {
         iniciarTabela();
         preencherTabela(FacadeJpa.getInstance().getVenda().findByNomeList(nome));
     }
 
-    public Venda getVenda()
-    {
+    public Venda getVenda() {
         Venda venda = new Venda();
-        venda = FacadeJpa.getInstance().getVenda().findByNomeSingle(Texto.getLinhaTable(jTableVenda));
+
+        venda = FacadeJpa.getInstance().getVenda().findByNomeSingle(Texto.getLinhaTable(jTableVenda, 1), Integer.valueOf(Texto.getLinhaTable(jTableVenda, 0)));
 
         System.out.println(venda);
         return venda;

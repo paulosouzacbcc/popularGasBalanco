@@ -28,22 +28,19 @@ public class ViewNovaVenda extends javax.swing.JDialog {
     boolean novaVenda = false;
     private DefaultComboBoxModel comboBoxModel;
 
-    public ViewNovaVenda(java.awt.Frame parent, boolean modal)
-    {
+    public ViewNovaVenda(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         this.setLocationRelativeTo(this);
         popularComboBoxCadastrar();
     }
 
-    public void cadastrarNovaVenda()
-    {
+    public void cadastrarNovaVenda() {
         setTitle("Cadastrar Nova Venda");
         novaVenda = true;
     }
 
-    public void editarVenda(Venda vendaUsuario)
-    {
+    public void editarVenda(Venda vendaUsuario) {
         novaVenda = false;
         venda = vendaUsuario;
 
@@ -54,16 +51,14 @@ public class ViewNovaVenda extends javax.swing.JDialog {
 
     }
 
-    public void editarPopularComboBox(Venda venda)
-    {
+    public void editarPopularComboBox(Venda venda) {
         DefaultComboBoxModel comboBoxModel = new DefaultComboBoxModel();
         comboBoxModel.addElement(venda.getNomeCliente());
         jComboBoxCliente.setModel(comboBoxModel);
         jComboBoxCliente.setEnabled(false);
     }
 
-    public void popularComboBoxCadastrar()
-    {
+    public void popularComboBoxCadastrar() {
 
         comboBoxModel = new DefaultComboBoxModel();
         List<Cliente> listCliente;
@@ -76,8 +71,7 @@ public class ViewNovaVenda extends javax.swing.JDialog {
         jComboBoxCliente.setModel(comboBoxModel);
     }
 
-    public boolean validarCampos()
-    {
+    public boolean validarCampos() {
         if (jComboBoxCliente.getSelectedItem() == "--Selecione um Cliente--") {
             JOptionPane.showMessageDialog(null, "Você deve selecionar um cliente.");
             return false;
@@ -242,6 +236,8 @@ public class ViewNovaVenda extends javax.swing.JDialog {
             venda.setObservacao(jTextAreaObservacao.getText());
             venda.setNomeCliente(jComboBoxCliente.getSelectedItem().toString());
             venda.setCliente(FacadeJpa.getInstance().getCliente().findByNomeSingle(jComboBoxCliente.getSelectedItem().toString()));
+            double valorTotal = Double.parseDouble(jTextFieldValor.getText()) - Double.parseDouble(jTextFieldDesconto.getText());
+            venda.setValorTotal(valorTotal);
 
             ControllerVenda controllerVenda = new ControllerVenda();
             if (novaVenda) {
@@ -261,8 +257,7 @@ public class ViewNovaVenda extends javax.swing.JDialog {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[])
-    {
+    public static void main(String args[]) {
         /*
          * Set the Nimbus look and feel
          */
@@ -294,13 +289,11 @@ public class ViewNovaVenda extends javax.swing.JDialog {
          * Create and display the dialog
          */
         java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run()
-            {
+            public void run() {
                 ViewNovaVenda dialog = new ViewNovaVenda(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
-                    public void windowClosing(java.awt.event.WindowEvent e)
-                    {
+                    public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
                     }
                 });

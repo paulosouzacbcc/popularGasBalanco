@@ -21,7 +21,7 @@ import model.Cliente;
 
 /**
  *
- * @author Paulo
+ * @author paulosouza
  */
 public class ClienteJpaController implements Serializable {
 
@@ -199,5 +199,5 @@ public class ClienteJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }

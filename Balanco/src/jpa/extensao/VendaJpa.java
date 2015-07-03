@@ -18,13 +18,11 @@ import util.Conexao;
  */
 public class VendaJpa extends VendaJpaController {
 
-    public VendaJpa()
-    {
+    public VendaJpa() {
         super(Conexao.conectar());
     }
 
-    public List<Venda> selectAllVenda()
-    {
+    public List<Venda> selectAllVenda() {
         try {
             EntityManager entityManager = super.getEntityManager();
             Query query = entityManager.createQuery("SELECT v FROM Venda v ORDER BY v.data ASC");
@@ -36,11 +34,11 @@ public class VendaJpa extends VendaJpaController {
 
     }
 
-    public Venda findByNomeSingle(String nome)
-    {
+    public Venda findByNomeSingle(String nome, int idVenda) {
         try {
             EntityManager entityManager = super.getEntityManager();
-            Query query = entityManager.createQuery("SELECT v FROM Venda v WHERE v.nomeCliente =:nome");
+            Query query = entityManager.createQuery("SELECT v FROM Venda v WHERE v.nomeCliente =:nome AND v.vendaPK.idvenda =:idVenda");
+            query.setParameter("idVenda", idVenda);
             query.setParameter("nome", nome);
             query.getSingleResult();
         } catch (Exception e) {
@@ -49,8 +47,7 @@ public class VendaJpa extends VendaJpaController {
         return null;
     }
 
-    public List<Venda> findByNomeList(String nome)
-    {
+    public List<Venda> findByNomeList(String nome) {
         try {
             EntityManager entityManager = super.getEntityManager();
             Query query = entityManager.createQuery("SELECT v FROM Venda v WHERE v.cliente.nome LIKE :nome ORDER BY v.nomeCliente ASC");
