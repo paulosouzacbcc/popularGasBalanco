@@ -38,4 +38,15 @@ public class ControllerVenda {
         return false;
     }
 
+    public boolean excluir(Venda venda)
+    {
+        try {
+            facadeJpa.getVenda().destroy(venda.getVendaPK());
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
 }

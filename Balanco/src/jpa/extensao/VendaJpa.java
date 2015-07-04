@@ -37,10 +37,10 @@ public class VendaJpa extends VendaJpaController {
     public Venda findByNomeSingle(String nome, int idVenda) {
         try {
             EntityManager entityManager = super.getEntityManager();
-            Query query = entityManager.createQuery("SELECT v FROM Venda v WHERE v.nomeCliente =:nome AND v.vendaPK.idvenda =:idVenda");
+            Query query = entityManager.createQuery("SELECT v FROM Venda v WHERE v.nomeCliente LIKE :nome AND v.vendaPK.idvenda =:idVenda");
             query.setParameter("idVenda", idVenda);
-            query.setParameter("nome", nome);
-            query.getSingleResult();
+            query.setParameter("nome", nome + "%");
+            return (Venda) query.getSingleResult();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -52,7 +52,7 @@ public class VendaJpa extends VendaJpaController {
             EntityManager entityManager = super.getEntityManager();
             Query query = entityManager.createQuery("SELECT v FROM Venda v WHERE v.cliente.nome LIKE :nome ORDER BY v.nomeCliente ASC");
             query.setParameter("nome", nome + "%");
-            query.getResultList();
+            return query.getResultList();
         } catch (Exception e) {
             e.printStackTrace();
         }

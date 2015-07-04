@@ -13,6 +13,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import model.Cliente;
 import model.Venda;
+import util.Texto;
 
 /**
  *
@@ -117,17 +118,31 @@ public class ViewNovaVenda extends javax.swing.JDialog {
         jLabel2.setText("Valor:");
 
         jTextFieldValor.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTextFieldValor.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyTyped(java.awt.event.KeyEvent evt)
+            {
+                jTextFieldValorKeyTyped(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("Desconto:");
 
         jTextFieldDesconto.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTextFieldDesconto.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyTyped(java.awt.event.KeyEvent evt)
+            {
+                jTextFieldDescontoKeyTyped(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setText("Observação:");
 
         jTextAreaObservacao.setColumns(20);
-        jTextAreaObservacao.setFont(new java.awt.Font("Monospaced", 0, 14)); // NOI18N
+        jTextAreaObservacao.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jTextAreaObservacao.setRows(5);
         jScrollPane1.setViewportView(jTextAreaObservacao);
 
@@ -253,6 +268,16 @@ public class ViewNovaVenda extends javax.swing.JDialog {
 
         }
     }//GEN-LAST:event_jButtonSalvarActionPerformed
+
+    private void jTextFieldValorKeyTyped(java.awt.event.KeyEvent evt)//GEN-FIRST:event_jTextFieldValorKeyTyped
+    {//GEN-HEADEREND:event_jTextFieldValorKeyTyped
+        Texto.somenteNumeros(evt);
+    }//GEN-LAST:event_jTextFieldValorKeyTyped
+
+    private void jTextFieldDescontoKeyTyped(java.awt.event.KeyEvent evt)//GEN-FIRST:event_jTextFieldDescontoKeyTyped
+    {//GEN-HEADEREND:event_jTextFieldDescontoKeyTyped
+        Texto.somenteNumeros(evt);
+    }//GEN-LAST:event_jTextFieldDescontoKeyTyped
 
     /**
      * @param args the command line arguments

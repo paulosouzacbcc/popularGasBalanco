@@ -5,8 +5,10 @@
  */
 package view.produto;
 
+import controller.ControllerProduto;
 import facade.FacadeJpa;
 import java.util.List;
+import javax.swing.JOptionPane;
 import model.Produto;
 import util.Internal;
 import util.MyDefaultTableModel;
@@ -63,7 +65,7 @@ public class ViewConsultaProduto extends javax.swing.JInternalFrame {
         preencherTabela(FacadeJpa.getInstance().getProduto().findByNomeList(produto));
     }
 
-    public Produto getProdutoTable()
+    public Produto getProduto()
     {
         return FacadeJpa.getInstance().getProduto().findByNomeSingle(captureNomeLinhaTabela());
 
@@ -72,6 +74,24 @@ public class ViewConsultaProduto extends javax.swing.JInternalFrame {
     public String captureNomeLinhaTabela()
     {
         return jTableProduto.getValueAt(jTableProduto.getSelectedRow(), 0).toString();
+    }
+
+    public void showEditar()
+    {
+        ViewNovoProduto viewNovoProduto = new ViewNovoProduto(null, true);
+        viewNovoProduto.editarProduto(getProduto());
+        viewNovoProduto.setVisible(true);
+    }
+
+    public boolean excluirProduto()
+    {
+        boolean excluir = false;
+        ControllerProduto controllerProduto = new ControllerProduto();
+        excluir = controllerProduto.excluir(getProduto());
+
+        if (excluir)
+            return true;
+        return false;
     }
 
     /**
@@ -92,6 +112,7 @@ public class ViewConsultaProduto extends javax.swing.JInternalFrame {
         jTableProduto = new javax.swing.JTable();
         jButtonExcluir = new javax.swing.JButton();
         jButtonNovoProduto = new javax.swing.JButton();
+        jButtonEditar = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setText("Buscar Produto:");
@@ -128,17 +149,17 @@ public class ViewConsultaProduto extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jTableProduto.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
-                jTableProdutoMouseClicked(evt);
-            }
-        });
         jScrollPane1.setViewportView(jTableProduto);
 
         jButtonExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/excluir.png"))); // NOI18N
         jButtonExcluir.setText("Excluir");
+        jButtonExcluir.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButtonExcluirActionPerformed(evt);
+            }
+        });
 
         jButtonNovoProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Novoproduto2.png"))); // NOI18N
         jButtonNovoProduto.setText("Novo Produto");
@@ -147,6 +168,16 @@ public class ViewConsultaProduto extends javax.swing.JInternalFrame {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
                 jButtonNovoProdutoActionPerformed(evt);
+            }
+        });
+
+        jButtonEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/edit.png"))); // NOI18N
+        jButtonEditar.setText("Editar");
+        jButtonEditar.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButtonEditarActionPerformed(evt);
             }
         });
 
@@ -165,8 +196,10 @@ public class ViewConsultaProduto extends javax.swing.JInternalFrame {
             .addComponent(jScrollPane1)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButtonEditar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonNovoProduto)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonExcluir)
                 .addContainerGap())
         );
@@ -180,11 +213,12 @@ public class ViewConsultaProduto extends javax.swing.JInternalFrame {
                         .addComponent(jLabel1)
                         .addComponent(jTextFieldBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 383, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonExcluir)
-                    .addComponent(jButtonNovoProduto))
+                    .addComponent(jButtonNovoProduto)
+                    .addComponent(jButtonEditar))
                 .addContainerGap())
         );
 
@@ -218,17 +252,31 @@ public class ViewConsultaProduto extends javax.swing.JInternalFrame {
         buscarDigitado(jTextFieldBuscar.getText());
     }//GEN-LAST:event_jTextFieldBuscarActionPerformed
 
-    private void jTableProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableProdutoMouseClicked
-        if (evt.getClickCount() >= 2) {
-            ViewNovoProduto viewNovoProduto = new ViewNovoProduto(null, true);
-            viewNovoProduto.editarProduto(getProdutoTable());
-            viewNovoProduto.setVisible(true);
-            recarregarTabela();
+    private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonEditarActionPerformed
+    {//GEN-HEADEREND:event_jButtonEditarActionPerformed
+        if (jTableProduto.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(null, "Selecione um produto na tabela.");
+            return;
         }
-    }//GEN-LAST:event_jTableProdutoMouseClicked
+        showEditar();
+        recarregarTabela();
+    }//GEN-LAST:event_jButtonEditarActionPerformed
+
+    private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonExcluirActionPerformed
+    {//GEN-HEADEREND:event_jButtonExcluirActionPerformed
+        if(jTableProduto.getSelectedRow() == -1){
+            JOptionPane.showMessageDialog(null, "Selecione um produto na tabela");
+            return;
+        }
+        if (excluirProduto())
+            JOptionPane.showMessageDialog(null, "Excluído com sucesso.");
+        else JOptionPane.showMessageDialog(null, "Erro ao excluir.");
+        recarregarTabela();
+    }//GEN-LAST:event_jButtonExcluirActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButtonEditar;
     private javax.swing.JButton jButtonExcluir;
     private javax.swing.JButton jButtonNovoProduto;
     private javax.swing.JLabel jLabel1;

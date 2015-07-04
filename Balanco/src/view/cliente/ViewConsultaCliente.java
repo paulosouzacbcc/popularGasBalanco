@@ -5,6 +5,7 @@
  */
 package view.cliente;
 
+import controller.ControllerCliente;
 import facade.FacadeJpa;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -23,11 +24,11 @@ public class ViewConsultaCliente extends javax.swing.JInternalFrame {
      * Creates new form ConsultaCliente
      */
     private MyDefaultTableModel tableModel;
+    private final Cliente cliente = new Cliente();
 
     public ViewConsultaCliente() {
         initComponents();
         Internal.retiraBotao(this);
-        this.pack();
         recarregarTabela();
     }
 
@@ -66,8 +67,24 @@ public class ViewConsultaCliente extends javax.swing.JInternalFrame {
     public void editarCliente() {
 
         ViewNovoCliente viewNovoCliente = new ViewNovoCliente(null, true);
-        viewNovoCliente.editarCliente(FacadeJpa.getInstance().getCliente().findByNomeSingle(Texto.getLinhaTable(jTableCliente, 0)));
+        viewNovoCliente.editarCliente(getCliente());
         viewNovoCliente.setVisible(true);
+    }
+
+    public Cliente getCliente()
+    {
+        return FacadeJpa.getInstance().getCliente().findByNomeSingle(Texto.getLinhaTable(jTableCliente, 0));
+    }
+
+    public boolean excluirCliente()
+    {
+        boolean excluir = false;
+        ControllerCliente controllerCliente = new ControllerCliente();
+        excluir = controllerCliente.excluir(getCliente());
+
+        if (excluir)
+            return true;
+        return false;
     }
 
     /**
@@ -77,65 +94,83 @@ public class ViewConsultaCliente extends javax.swing.JInternalFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableCliente = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jButtonNovoCliente = new javax.swing.JButton();
+        jButtonExcluir = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jTextFieldNomeBuscar = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        jButtonRecarregar = new javax.swing.JButton();
+        jButtonEditar = new javax.swing.JButton();
 
         jTableCliente.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jTableCliente.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+            new Object [][]
+            {
                 {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null}
             },
-            new String [] {
+            new String []
+            {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
         jScrollPane1.setViewportView(jTableCliente);
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/novoCliente.png"))); // NOI18N
-        jButton1.setText("Novo Cliente");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+        jButtonNovoCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/novoCliente.png"))); // NOI18N
+        jButtonNovoCliente.setText("Novo Cliente");
+        jButtonNovoCliente.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButtonNovoClienteActionPerformed(evt);
             }
         });
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/excluir.png"))); // NOI18N
-        jButton2.setText("Excluir");
+        jButtonExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/excluir.png"))); // NOI18N
+        jButtonExcluir.setText("Excluir");
+        jButtonExcluir.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButtonExcluirActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setText("Buscar Cliente:");
 
         jTextFieldNomeBuscar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextFieldNomeBuscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jTextFieldNomeBuscar.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jTextFieldNomeBuscarActionPerformed(evt);
             }
         });
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Refresh3.png"))); // NOI18N
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+        jButtonRecarregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Refresh3.png"))); // NOI18N
+        jButtonRecarregar.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButtonRecarregarActionPerformed(evt);
             }
         });
 
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/edit.png"))); // NOI18N
-        jButton4.setText("Editar");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+        jButtonEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/edit.png"))); // NOI18N
+        jButtonEditar.setText("Editar");
+        jButtonEditar.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButtonEditarActionPerformed(evt);
             }
         });
 
@@ -149,17 +184,17 @@ public class ViewConsultaCliente extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton4)
+                        .addComponent(jButtonEditar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)
+                        .addComponent(jButtonNovoCliente)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2))
+                        .addComponent(jButtonExcluir))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
                         .addComponent(jTextFieldNomeBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton3)
+                        .addComponent(jButtonRecarregar)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -168,19 +203,18 @@ public class ViewConsultaCliente extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton3)
+                    .addComponent(jButtonRecarregar)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel1)
                         .addComponent(jTextFieldNomeBuscar)))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 329, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton2)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton1)
-                        .addComponent(jButton4)))
-                .addGap(11, 11, 11))
+                    .addComponent(jButtonExcluir)
+                    .addComponent(jButtonNovoCliente)
+                    .addComponent(jButtonEditar))
+                .addGap(14, 14, 14))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -197,22 +231,22 @@ public class ViewConsultaCliente extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButtonNovoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNovoClienteActionPerformed
         ViewNovoCliente viewNovoCliente = new ViewNovoCliente(null, true);
         viewNovoCliente.cadastrarNovoCliente();
         viewNovoCliente.setVisible(true);
         recarregarTabela();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jButtonNovoClienteActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void jButtonRecarregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRecarregarActionPerformed
         recarregarTabela();
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_jButtonRecarregarActionPerformed
 
     private void jTextFieldNomeBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNomeBuscarActionPerformed
         buscarDigitado(jTextFieldNomeBuscar.getText());
     }//GEN-LAST:event_jTextFieldNomeBuscarActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
 
         if (jTableCliente.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(null, "Selecione um cliente na tabela.");
@@ -221,13 +255,25 @@ public class ViewConsultaCliente extends javax.swing.JInternalFrame {
         editarCliente();
         recarregarTabela();
 
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_jButtonEditarActionPerformed
+
+    private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonExcluirActionPerformed
+    {//GEN-HEADEREND:event_jButtonExcluirActionPerformed
+        if(jTableCliente.getSelectedRow() == -1){
+            JOptionPane.showMessageDialog(null, "Selecione um cliente.");
+        }
+        if (excluirCliente())
+            JOptionPane.showMessageDialog(null, "Excluído com sucesso.");
+        else JOptionPane.showMessageDialog(null, "Erro ao excluir.");
+
+        recarregarTabela();
+    }//GEN-LAST:event_jButtonExcluirActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButtonEditar;
+    private javax.swing.JButton jButtonExcluir;
+    private javax.swing.JButton jButtonNovoCliente;
+    private javax.swing.JButton jButtonRecarregar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

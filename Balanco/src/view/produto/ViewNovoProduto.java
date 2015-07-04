@@ -34,6 +34,7 @@ public class ViewNovoProduto extends javax.swing.JDialog {
         setTitle("Editar Produto");
         jTextFieldNome.setText(produtoUsuario.getNome());
         jTextFieldValor.setText(String.valueOf(produtoUsuario.getValor()));
+        jTextAreaObservacao.setText(produtoUsuario.getObservacao());
         novoProduto = false;
         produto = produtoUsuario;
 
@@ -65,7 +66,8 @@ public class ViewNovoProduto extends javax.swing.JDialog {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -89,30 +91,38 @@ public class ViewNovoProduto extends javax.swing.JDialog {
         jLabel2.setText("Valor:");
 
         jTextFieldValor.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextFieldValor.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
+        jTextFieldValor.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyTyped(java.awt.event.KeyEvent evt)
+            {
                 jTextFieldValorKeyTyped(evt);
             }
         });
 
         jButtonCancelar.setText("Cancelar");
-        jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jButtonCancelar.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jButtonCancelarActionPerformed(evt);
             }
         });
 
         jButtonSalvar.setText("Salvar");
-        jButtonSalvar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jButtonSalvar.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jButtonSalvarActionPerformed(evt);
             }
         });
 
         jTextAreaObservacao.setColumns(20);
+        jTextAreaObservacao.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jTextAreaObservacao.setRows(5);
         jScrollPane1.setViewportView(jTextAreaObservacao);
 
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("Observação:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -133,7 +143,7 @@ public class ViewNovoProduto extends javax.swing.JDialog {
                             .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE)
                             .addComponent(jTextFieldValor)
                             .addComponent(jTextFieldNome))))
                 .addContainerGap())
