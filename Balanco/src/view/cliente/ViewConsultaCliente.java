@@ -10,9 +10,11 @@ import facade.FacadeJpa;
 import java.util.List;
 import javax.swing.JOptionPane;
 import model.Cliente;
+import util.CheckDefaultTableModel;
 import util.Internal;
 import util.MyDefaultTableModel;
 import util.Texto;
+import view.venda.ViewNovaVenda;
 
 /**
  *
@@ -24,7 +26,7 @@ public class ViewConsultaCliente extends javax.swing.JInternalFrame {
      * Creates new form ConsultaCliente
      */
     private MyDefaultTableModel tableModel;
-    private final Cliente cliente = new Cliente();
+    private Cliente cliente = new Cliente();
 
     public ViewConsultaCliente() {
         initComponents();
@@ -70,6 +72,8 @@ public class ViewConsultaCliente extends javax.swing.JInternalFrame {
         viewNovoCliente.editarCliente(getCliente());
         viewNovoCliente.setVisible(true);
     }
+    
+    
 
     public Cliente getCliente()
     {
@@ -121,6 +125,13 @@ public class ViewConsultaCliente extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTableCliente.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt)
+            {
+                jTableClienteMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableCliente);
 
         jButtonNovoCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/novoCliente.png"))); // NOI18N
@@ -268,6 +279,17 @@ public class ViewConsultaCliente extends javax.swing.JInternalFrame {
 
         recarregarTabela();
     }//GEN-LAST:event_jButtonExcluirActionPerformed
+
+    private void jTableClienteMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jTableClienteMouseClicked
+    {//GEN-HEADEREND:event_jTableClienteMouseClicked
+        if (evt.getClickCount() >= 2) {
+            
+            ViewNovaVenda viewNovaVenda = new ViewNovaVenda(null, true);
+            cliente = FacadeJpa.getInstance().getCliente().findByNomeSingle(Texto.getLinhaTable(jTableCliente, 0));
+            viewNovaVenda.novaVenda(cliente);
+            viewNovaVenda.setVisible(true);
+        }
+    }//GEN-LAST:event_jTableClienteMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonEditar;
