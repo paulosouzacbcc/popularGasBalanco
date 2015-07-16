@@ -7,13 +7,13 @@ package view.venda;
 
 import controller.ControllerVenda;
 import facade.FacadeJpa;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import model.Cliente;
 import model.Produto;
-import model.Produto_;
 import model.Venda;
 import util.CheckDefaultTableModel;
 import util.Texto;
@@ -59,31 +59,32 @@ public class ViewNovaVenda extends javax.swing.JDialog {
 
     }
 
-    public void novaVenda(Cliente cliente){
+    public void novaVenda(Cliente cliente) {
         novaVenda = true;
         DefaultComboBoxModel comboBoxModel = new DefaultComboBoxModel();
         comboBoxModel.addElement(cliente.getNome());
         jComboBoxCliente.setModel(comboBoxModel);
         jComboBoxCliente.setEnabled(false);
-        
+
     }
-    
-    public void iniciarCheckTabela(){
-        defaultTableModel = new CheckDefaultTableModel(new String [] {"Selecionar", "Produto", "Valor"}, 0, false);
+
+    public void iniciarCheckTabela() {
+        defaultTableModel = new CheckDefaultTableModel(new String[]{"Selecionar", "Produto", "Valor"}, 0, false);
         jTableProdutosCheckBox.setModel(defaultTableModel);
-        
+
     }
-    public void preencherCheckTable(){
-        
+
+    public void preencherCheckTable() {
+
         List<Produto> listProdutos = FacadeJpa.getInstance().getProduto().selectAllProdutos();
         for (int i = 0; i < listProdutos.size(); i++) {
-            Object [] linhas  = {
+            Object[] linhas = {
                 false,
-            listProdutos.get(i).getNome(),
-            String.valueOf(listProdutos.get(i).getValor())
+                listProdutos.get(i).getNome(),
+                String.valueOf(listProdutos.get(i).getValor())
             };
             defaultTableModel.addRow(linhas);
-            
+
         }
         jTableProdutosCheckBox.setModel(defaultTableModel);
         jTableProdutosCheckBox.getColumnModel().getColumn(0).setPreferredWidth(80);
@@ -123,6 +124,23 @@ public class ViewNovaVenda extends javax.swing.JDialog {
         return true;
     }
 
+    public void capturarProdutosCheckTable() {
+        int TAM = jTableProdutosCheckBox.getRowCount();
+        int Col = jTableProdutosCheckBox.getColumnCount();
+        ArrayList<String> arrayList = new ArrayList<>();
+
+        for (int i = 0; i < TAM; i++) {
+
+            if ((boolean) jTableProdutosCheckBox.getModel().getValueAt(i, 0) == true) {
+                System.out.println("True linha: " + i);
+                jTableProdutosCheckBox.getModel().getValueAt(i, 1).toString();
+
+            }
+
+        }
+
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -130,8 +148,7 @@ public class ViewNovaVenda extends javax.swing.JDialog {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -147,6 +164,7 @@ public class ViewNovaVenda extends javax.swing.JDialog {
         jButtonSalvar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableProdutosCheckBox = new javax.swing.JTable();
+        jButtonTeste = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -159,10 +177,8 @@ public class ViewNovaVenda extends javax.swing.JDialog {
         jLabel2.setText("Valor:");
 
         jTextFieldValor.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextFieldValor.addKeyListener(new java.awt.event.KeyAdapter()
-        {
-            public void keyTyped(java.awt.event.KeyEvent evt)
-            {
+        jTextFieldValor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTextFieldValorKeyTyped(evt);
             }
         });
@@ -171,10 +187,8 @@ public class ViewNovaVenda extends javax.swing.JDialog {
         jLabel3.setText("Desconto:");
 
         jTextFieldDesconto.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextFieldDesconto.addKeyListener(new java.awt.event.KeyAdapter()
-        {
-            public void keyTyped(java.awt.event.KeyEvent evt)
-            {
+        jTextFieldDesconto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTextFieldDescontoKeyTyped(evt);
             }
         });
@@ -188,37 +202,38 @@ public class ViewNovaVenda extends javax.swing.JDialog {
         jScrollPane1.setViewportView(jTextAreaObservacao);
 
         jButtonCancelar.setText("Cancelar");
-        jButtonCancelar.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonCancelarActionPerformed(evt);
             }
         });
 
         jButtonSalvar.setText("Salvar");
-        jButtonSalvar.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButtonSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonSalvarActionPerformed(evt);
             }
         });
 
         jTableProdutosCheckBox.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][]
-            {
+            new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null}
             },
-            new String []
-            {
+            new String [] {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
         jScrollPane2.setViewportView(jTableProdutosCheckBox);
+
+        jButtonTeste.setText("Teste");
+        jButtonTeste.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonTesteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -227,7 +242,9 @@ public class ViewNovaVenda extends javax.swing.JDialog {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(444, 444, 444)
+                        .addGap(358, 358, 358)
+                        .addComponent(jButtonTeste)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonSalvar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButtonCancelar))
@@ -275,7 +292,9 @@ public class ViewNovaVenda extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButtonCancelar)
-                    .addComponent(jButtonSalvar))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButtonSalvar)
+                        .addComponent(jButtonTeste)))
                 .addContainerGap())
         );
 
@@ -336,6 +355,10 @@ public class ViewNovaVenda extends javax.swing.JDialog {
         Texto.somenteNumeros(evt);
     }//GEN-LAST:event_jTextFieldDescontoKeyTyped
 
+    private void jButtonTesteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTesteActionPerformed
+        capturarProdutosCheckTable();
+    }//GEN-LAST:event_jButtonTesteActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -387,6 +410,7 @@ public class ViewNovaVenda extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonSalvar;
+    private javax.swing.JButton jButtonTeste;
     private javax.swing.JComboBox jComboBoxCliente;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
