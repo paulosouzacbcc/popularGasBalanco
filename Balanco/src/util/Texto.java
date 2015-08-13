@@ -30,7 +30,7 @@ public class Texto {
 
     public static void somenteNumeros(java.awt.event.KeyEvent evt) {
 
-        String caracteres = "0987654321.";
+        String caracteres = "0987654321. '@#$%*()_+-=`'{[}]?/:;.,<>|";
         if (!caracteres.contains(evt.getKeyChar() + "")) {
             evt.consume();
         }
