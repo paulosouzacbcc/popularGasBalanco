@@ -322,10 +322,6 @@ public class ViewNovoCliente extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "O campo ''Numero'' não pode ser vazio");
             return false;
         }
-        if (jTextFieldPerimetro.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null, "O campo ''Perímetro'' não pode ser vazio");
-            return false;
-        }
         if (jTextFieldTelefone.getText().isEmpty()){
             JOptionPane.showMessageDialog(null, "O campo ''Telefone'' não pode ser vazio");
             return false;
